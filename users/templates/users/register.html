@@ -1,0 +1,131 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}
+| Login
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-title">
+                        <h2>Login</h2>
+                    </div>
+                    <form novalidate method="POST" action="{% url 'login' %}?next={{ tab }}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ loginform.username.label_tag }}
+                            {{loginform.username|addClass:'form-control'}}
+                            {% if loginform.errors%}
+                            <div>
+                                {{loginform.errors.username}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ loginform.password.label_tag }}
+                            {{loginform.password|addClass:'form-control'}}
+                            {% if loginform.errors%}
+                            <div>
+                                {{loginform.errors.password}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <button class="btn btn-danger" type="submit" name="log-in">Login</button>
+                        
+                    </form>
+                    {% if not user.is_authenticated and tab != 'index' %}
+                    <div class="checkout_details_area mt-50 clearfix">
+                        <div class="cart-title">
+                            <a href="{% url 'checkout' %}"><h5>Continue as a Guest User</h5></a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-12 col-lg-7">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-title">
+                        <h2>Register</h2>
+                    </div>
+                    <form novalidate method="POST" action="{% url 'login' %}?next={{ tab }}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ signupform.username.label_tag }}
+                            {{signupform.username|addClass:'form-control'}}
+                            {% if signupform.errors%}
+                            <div>
+                                {{signupform.errors.username}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col">
+                                    {{ signupform.first_name.label_tag }}
+                                    {{signupform.first_name|addClass:'form-control'}}
+                                    {% if signupform.errors%}
+                                    <div>
+                                        {{signupform.errors.first_name}}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {{ signupform.last_name.label_tag }}
+                                    {{signupform.last_name|addClass:'form-control'}}
+                                    {% if signupform.errors%}
+                                    <div>
+                                        {{signupform.errors.last_name}}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ signupform.email.label_tag }}
+                            {{signupform.email|addClass:'form-control'}}
+                            {% if signupform.errors%}
+                            <div>
+                                {{signupform.errors.email}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col">
+                                    {{ signupform.password1.label_tag }}
+                                    {{signupform.password1|addClass:'form-control'}}
+                                    {% if signupform.errors%}
+                                    <div>
+                                        {{signupform.errors.password1}}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <label for="{{ signupform.password2.id_for_label }}">Confirm
+                                        Password:</label>
+                                    {{signupform.password2|addClass:'form-control'}}
+                                    {% if signupform.errors%}
+                                    <div>
+                                        {{signupform.errors.password2}}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit" name="sign-up">Sign
+                            Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

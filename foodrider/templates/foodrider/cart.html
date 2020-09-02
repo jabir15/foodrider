@@ -1,0 +1,87 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% block title %}
+| Cart
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="cart-title mt-50">
+                    <h2>Shopping Cart</h2>
+                </div>
+
+                <div class="cart-table clearfix">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="flex:2; width:50%; max-width:50%;">Item</th>
+                                <th style="flex:1;">Price</th>
+                                <th style="flex:1;">Quantity</th>
+                                <th style="flex:1;">Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items  %}
+                            <tr>
+                                <td style="flex:2; width:50%; max-width:50%;" class="cart_product_desc">
+                                    <h5>{{item.menu_item.menu.restaurant.name}}-{{item.menu_item.menu.name}}-{{item.menu_item.name}}
+                                    </h5>
+                                </td>
+                                <td style="flex:1;" class="price">
+                                    {% if item.menu_item.discount_price %}
+                                    <span
+                                        style="opacity:0.5; text-decoration:line-through">{{item.menu_item.nominal_price}}</span>
+                                    {% endif %}
+                                    <span>{{item.menu_item.get_actual_price}}</span>
+                                </td>
+                                <td style="flex:1;" class="qty">
+                                    <div class="qty-btn d-flex">
+                                        <div class="quantity">
+                                            <span data-product={{item.menu_item.id}} data-action="remove"
+                                                class="qty-minus update-cart"><i class="fa fa-minus"
+                                                    aria-hidden="true"></i></span>
+                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
+                                                name="quantity" value="{{item.quantity}}">
+                                            <span data-product={{item.menu_item.id}} data-action="add"
+                                                class="qty-plus update-cart"><i class="fa fa-plus"
+                                                    aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="flex:1;" class="price">
+                                    <span>{{item.get_actual_price_times_quantity}}</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="cart-summary">
+                    <span class="h5">Cart Total {% if cart_items %} ({{order.get_cart_total_items}}){% endif %}</span>
+                    <ul class="summary-table">
+                        <li><span>subtotal:</span> <span>{{order.get_cart_total_nominal_price}}</span></li>
+                        <li><span>discounts:</span> <span>{{order.get_cart_total_discount_price}}</span></li>
+                        <li><span>delivery:</span>
+                            <span>{% if cart_items %}{{order.delivery_charge}}{% else %}0{% endif %}</span></li>
+                        <li style="font-weight:bold;"><span>total:</span>
+                            <span>{% if cart_items %}{{order.get_cart_total_actual_price}}{% else %}0{% endif %}</span>
+                        </li>
+                    </ul>
+                    <div class="cart-btn mt-100">
+                        <a href="{% url 'before-checkout' %}" class="btn amado-btn w-100">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{%static 'foodrider/js/foodrider/cart.js'%}"></script>
+{% endblock scripts %}

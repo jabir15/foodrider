@@ -1,0 +1,60 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}
+| Restaurants
+{% endblock title %}
+{% block content %}
+
+        <div class="cart-table-area  section-padding-100">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <!-- Single Product Area -->
+                    {% for restaurant in restaurants %}
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                        <div class="single-product-wrapper">
+                            <!-- Product Image -->
+                            <div class="product-img">
+                                <a href="{% url 'restaurant-details' id=restaurant.id %}">
+                                <img src="{% static 'foodrider/img/product-img/product1.jpg'%}" alt="">
+                                <img class="hover-img" src="{%static 'foodrider/img/product-img/product2.jpg'%}" alt="">
+                                </a>
+                            </div>
+
+                            <!-- Product Description -->
+                            <div class="product-description d-flex align-items-center justify-content-between mt-2">
+                                <!-- Product Meta Data -->
+                                <div class="product-meta-data">
+                                    <a href="{% url 'restaurant-details' id=restaurant.id %}">
+                                        <h6>{{restaurant.name}} &mdash; ({{restaurant.get_menu_items.count}})</h6>
+                                    
+                                    <span style="font-size:0.75em">Minimum order value: 100/-</span><br>
+                                    <span style="font-size:0.75em"> Delivery time: 45-60min.</span>
+                                    <div class="ratings">
+                                    {% for _ in restaurant.rating|getRange %}
+                                        <i class="fa fa-star" style="color:#fbb710" aria-hidden="true"></i>
+                                    {% endfor %}
+                                    </a>
+                                    </div>
+                                </div>
+                                <!-- Ratings & Cart -->
+                                <div class="ratings-cart text-right">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+
+                    <!-- Single Product Area -->
+                    
+                </div>
+
+                
+            </div>
+        </div>
+        
+        {% endblock content %}

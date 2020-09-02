@@ -1,0 +1,159 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% block title %}
+| Checkout
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-title">
+                        <h2>Checkout</h2>
+                    </div>
+                    <h5>Shipping Address</h5>
+                    <form id="place-order" action="{% url 'order-placed' %}" method="POST">
+                        {% csrf_token %}
+                        {% if formdata %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="first_name" name="fname"
+                                    value="{{formdata.fname}}" placeholder="First Name" required {% if razor_order %}disabled{% endif %}>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="last_name" name="lname"
+                                    value="{{formdata.lname}}" placeholder="Last Name" required {% if razor_order %}disabled{% endif %}>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                    value="{{formdata.email}}" {% if razor_order %}disabled{% endif %}>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="tel" class="form-control" id="phone_number" name="phone"
+                                    maxlength="10", minlength="10" pattern= "[6-9]{1}[0-9]{9}" title="10 digit phone number without any country codes"
+                                    placeholder="Phone No (10 digits)" value="{{formdata.phone}}" required {% if razor_order %}disabled{% endif %}>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control mb-3" id="street_address" name="address"
+                                    placeholder="Address" value="{{formdata.address}}" required {% if razor_order %}disabled{% endif %}>
+                            </div>
+                            {% if user.is_authenticated and not razor_order %}
+                            <div class="col-12 mb-3">
+                                <input type="checkbox" class="form-check-lg" id="make_default" name="make_default">
+                                <label for="make_default" class="form-check-label mb-3">Make this your default address</label>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="first_name" name="fname" value=""
+                                    placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="last_name" name="lname" value=""
+                                    placeholder="Last Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                    value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="tel" class="form-control" id="phone_number" name="phone"
+                                    maxlength="10", minlength="10" pattern= "[6-9]{1}[0-9]{9}"
+                                    placeholder="Phone No (10 digits)" value="" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control mb-3" id="street_address" name="address"
+                                    placeholder="Address" value="" required>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <h5>Payment Method</h5>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input " type="radio" name="paymentmethods" id="cash_on_delivery"
+                                value="COD" {% if not razor_order %} checked {% endif %}>
+                            <label class="form-check-label" for="cash_on_delivery">
+                                Cash on Delivery
+                            </label>
+                        </div>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="radio" name="paymentmethods" id="razorpay" value="ONL"
+                                {% if razor_order %} checked {% endif %}>
+                            <label class="form-check-label" for="razorpay">
+                                Online
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="cart-summary">
+                    <h5>Your Order Summary</h5>
+                    <ul class="summary-table">
+                        <li><span>subtotal:</span> <span>{{order.get_cart_total_nominal_price}}</span></li>
+                        {% for item in cart_items %}
+                        <li>
+                            <span>{{item.menu_item.menu.name}}<br>{{item.menu_item.name}} &times;
+                                <strong>{{item.quantity}}</strong></span>
+                            <span>{{item.get_nominal_price_times_quantity}}</span>
+                        </li>
+                        {% endfor %}
+                        <hr style='margin-top:-1em' />
+                        <li><span>total discount (-):</span> <span>{{order.get_cart_total_discount_price}}</span></li>
+                        {% for item in cart_items %}
+                        {% if item.menu_item.discount_price %}
+                        <li>
+                            <span>Sale {{item.menu_item.discount_price}}&times;{{item.quantity}}</span>
+                            <span>{{item.get_discount_price_times_quantity}}</span>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        <hr style='margin-top:-1em' />
+                        <li><span>delivery (+):</span> <span>{{order.delivery_charge}}</span></li>
+                        <hr style='margin-top:-1em' />
+                        <li style="font-weight:bold;"><span>total:</span>
+                            <span>{{order.get_cart_total_actual_price}}</span></li>
+                    </ul>
+
+                    <div class="cart-btn mt-50">
+                        <input class="btn amado-btn w-100" type="submit" form="place-order"
+                            {% if razor_order %}disabled{% endif %} value={% if razor_order %}"Order Placed"
+                            {% else %}"Place Order"{% endif %}>
+                    </div>
+                    {% if razor_order %}
+
+                    <div class="cart-btn w-80 mt-30 text-center text-success">
+                    <i class="fa fa-check-circle" style="font-size:32px" aria-hidden="true"></i>
+                        <p style="line-height:12px;"><small> Pay securely using Razorpay <br>(2% transaction
+                                fees)</small></p>
+                        </span>
+                        <form action="{% url 'payment-success' %}" method="POST">
+                            {% csrf_token %}
+                            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                data-key="rzp_test_D68OCrQct4PQuG" data-amount="{{razor_order.amount_due}}"
+                                data-currency="{{razor_order.currency}}" data-order_id="{{razor_order.id}}"
+                                data-buttontext="Pay with Razorpay" data-name="Food Rider"
+                                data-description="Secure payment"
+                                data-image="{% static 'foodrider/img/core-img/logo.png'%}"
+                                data-prefill.name="{{prefill_name}}" data-prefill.email="{{prefill_email}}"
+                                data-prefill.contact="{{prefill_contact}}" data-theme.color="#fbb710"></script>
+                            <input type="hidden" custom="Hidden Element" name="hidden">
+                        </form>
+                    </div>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{{order.get_cart_total_actual_price|json_script:'order-total'}}
+
+<script type="text/javascript" src="{%static 'foodrider/js/foodrider/placeorder.js'%}"></script>
+
+{% endblock scripts %}

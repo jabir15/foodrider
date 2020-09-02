@@ -1,0 +1,76 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div id="{{restaurant.id}}" class="restaurant-name cart-title mt-50 text-center">
+                            <h2>{{restaurant.name}}</h2>
+                        </div>
+
+        
+                            <ul>
+                                {% for item in menu_items %}
+                                <div class="card mb-3">
+                                    <div class="card-body p-0">
+                                        <li><h5 style="background:#eee;" class="card-title p-2">{{item.name}}</h5></li>
+                                        {% comment %} <p class="card-text">Some item description content.</p> {% endcomment %}
+                                            {% for option in item.get_all_options %}
+                                                <li style="text-align: right;" class="card-text p-1 m-3 border-bottom">
+                                                    {% if option.discount_price %}
+                                                        <span class="badge badge-dark p-2 font-weight-normal">Sale</span>
+                                                    {% endif%}
+                                                    <span >{{option.name}} &mdash;</span>
+                                                    {% if option.discount_price %}
+                                                        <span
+                                                        style="opacity:0.5; text-decoration:line-through">{{option.nominal_price}}</span>
+                                                    {% endif %}
+                                                    <span>{{option.get_actual_price}}</span>
+                                                    
+                                                    <button
+                                                        data-restaurant = {{item.restaurant.id}}
+                                                        data-product = {{option.id}}
+                                                        data-action = "add"
+                                                        class="btn amado-btn-plus fa fa-plus update-cart">
+                                                    </button>
+                                                </li>
+                                            {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Cart Summary</h5>
+                            <ul class="summary-table">
+                                {% for item in cart_items %}
+                                    <li>
+                                        <span>{{item.menu_item.menu.name}}--{{item.menu_item.name}} &times; <strong>{{item.quantity}}</strong></span>
+                                        <span
+                                        style="height:16px; padding:1px 4px; background-color:#ccc ;"
+                                        data-restaurant =  {{item.menu_item.menu.restaurant.id}}
+                                        data-product = {{item.menu_item.id}}
+                                        data-action = "remove"
+                                        class="btn amado-btn-minus fa fa-minus update-cart">
+                                        </spnn>
+                                    </li>
+                                {% endfor %}
+                                <hr style='margin-top:-1em' />
+                                <li><span>cart items:</span> <span><strong>{% if cart_items %}{{order.get_cart_total_items}}{% else %}0{% endif %}</strong></span></li>
+                                <li style="font-weight:bold;"><span>total:</span> <span>{% if cart_items %}{{order.get_cart_total_actual_price_without_delivery}}{% else %}0{% endif %}</span></li>
+                            </ul>
+                            <div class="cart-btn mt-50">
+                                <a href="{% url 'cart' %}" class="btn amado-btn w-100">Proceed to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{%static 'foodrider/js/foodrider/product.js'%}"></script>
+{% endblock scripts %}

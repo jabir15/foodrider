@@ -1,0 +1,49 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}
+| Admin Dashboard
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="card-deck mt-50">
+            <div class="card">
+                <div class="card-header">Products ({{number_of_menuitems}})</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Products</h5>
+                    <p class="card-text">Here you will be able to add, update and delete all things related to the restaurant</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'admin-dashboard-products' %}" class="btn amado-btn">Manage</a>
+                    </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Orders ({{number_of_orders}})</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Orders</h5>
+                    <p class="card-text">Here you will be able to see and update your orders
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'admin-dashboard-orders' %}" class="btn amado-btn">Manage</a>
+                    </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Customers ({{number_of_orders}})</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Customers</h5>
+                    <p class="card-text">Here you will be able to see your customers, their registration status and their orders.
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'admin-dashboard-customers' %}" class="btn amado-btn">Manage</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

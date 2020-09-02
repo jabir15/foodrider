@@ -1,0 +1,105 @@
+{% extends 'foodrider/base.html' %}
+{% load static %}
+{% block title %}
+| Your Account
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="cart-title mt-50">
+                    <h2>Your Orders</h2>
+                </div>
+                {% if orders %}
+                <div class="cart-summary my-0">
+                    <ul class="summary-table my-0">
+                        <li><span>Order transaction id:</span><span>Order date</span><span>Order total</span><span>Order
+                                status</span></li>
+                        <hr style='margin-top:-1em' />
+                        <hr style='margin-top:-1em' />
+                        {% for order in orders %}
+                        <li>
+                            <a href="{% url 'order-confirmed' transactionid=order.transaction_id %}">
+                                <h6>Order #{{order.id}}</h6>
+                            </a>
+                            <span>{{order.date_ordered}}</span>
+                            <span>{{order.get_cart_total_actual_price}} for {{order.get_cart_total_items}} items</span>
+                            <span>{{order.get_status_display}}</span>
+                        </li>
+                        <hr style='margin-top:-1em' />
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="cart-title mt-50">
+                    <h2>Your Shipping Addresses</h2>
+                </div>
+                <div class="row">
+                    <div class="col-12" id="customer_addresses">
+                        {% include 'foodrider/includes/customer_address.html' %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    $('body').on('click', '.update', (function (e) {
+        e.preventDefault()
+        var shipping_id = $(this).data('id')
+        var action = $(this).data('action')
+        var sib = $(this).closest('div').prev().find('input')
+        var input_text = sib.val()
+        var is_sel = sib.is(":checked")
+        var is_default = $(this).closest('form').find('.hd').hasClass('text-white')
+        console.log(is_default)
+        if (action==='delete' && !is_default){
+            alert('Default shipping address cannot be deleted.')
+            return false;
+        } else if (action ==='delete'){
+            var result = confirm('Are you sure you want to delete?')
+            if (!result){
+                return false;
+            }
+        }
+        if (action==='update-default' && !$(this).hasClass('text-white')){
+            return false;
+        }
+        if (action==='add'){
+            var street = $('#ship_address').val()
+            var phone  = $('#ship_phone').val()
+        }
+        $.ajax({
+            method: "POST",
+            url: "/create-or-update-address/",
+            data: {
+                'update_value': input_text,
+                'shipping_id': shipping_id,
+                'action': action,
+                'make_default':is_sel,
+                'street':street ? street : '',
+                'phone':phone ? phone : '',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                console.log(data.status_code)
+                //$(this).closest('div').prev().find('input').val(data['value'])
+                $('#customer_addresses').html(data)
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+        
+    }));
+</script>
+{% endblock scripts %}

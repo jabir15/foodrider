@@ -1,0 +1,19 @@
+<ul class="summary-table">
+    {% for item in cart_items %}
+    <li>
+        <span>{{item.menu_item.menu.name}}--{{item.menu_item.name}} &times;
+            <strong>{{item.quantity}}</strong></span>
+        <span style="height:16px; padding:1px 4px; background-color:#ccc ;"
+            data-restaurant={{item.menu_item.menu.restaurant.id}} data-product={{item.menu_item.id}}
+            data-action="remove" class="btn amado-btn-minus fa fa-minus update-cart">
+            </spnn>
+    </li>
+    {% endfor %}
+    <hr style='margin-top:-1em' />
+    <li><span>cart items:</span>
+        <span><strong>{% if cart_items %}{{order.get_cart_total_items}}{% else %}0{% endif %}</strong></span>
+    </li>
+    <li style="font-weight:bold;"><span>total:</span>
+        <span>{% if cart_items %}{{order.get_cart_total_actual_price_without_delivery}}{% else %}0{% endif %}</span>
+    </li>
+</ul>

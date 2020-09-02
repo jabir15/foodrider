@@ -1,0 +1,14 @@
+{% if menus %}
+<select class="form-control" id="select-menu">
+    <option value="None">Select Menu</option>
+    {% for menu in menus %}
+    <option value="{{menu.name}}">
+        {{menu.name}}
+    </option>
+    {% endfor %}
+</select>
+{% else %}
+<select class="form-control" id="select-menu">
+    <option value="None">Select Menu</option>
+</select>
+{% endif %}

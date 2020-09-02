@@ -1,0 +1,79 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+| Dashboard Orders Details
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row mt-50">
+            <div class='col-12'>
+                <form id="add_new" action="{% url 'admin-order-details' transactionid=order.transaction_id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <label for="order_status">Order Status</label>
+                            <select class="form-control mb-2 mr-sm-2" id="order_status" name="order_status">
+                                <option value=1 {% if order.status == 1 %}selected="selected" {% endif %}>Placed
+                                </option>
+                                <option value=2 {% if order.status == 2 %}selected="selected" {% endif %}>Confirmed
+                                </option>
+                                <option value=3 {% if order.status == 3 %}selected="selected" {% endif %}>Ready
+                                </option>
+                                <option value=4 {% if order.status == 4 %}selected="selected" {% endif %}>Picked Up
+                                </option>
+                                <option value=5 {% if order.status == 5 %}selected="selected" {% endif %}>Delivered
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <label for="driver_name">Driver Name</label>
+                            <input type="text" list="driver_names" class="form-control mb-2 mr-sm-2" id="driver_name" name="driver_name"
+                                {% if order.driver %}value="{{order.driver.name}}"{% endif %} placeholder="Name">
+                                <datalist id="driver_names">
+                                {% for driver in drivers %}
+                                <option value="{{driver.name}}">
+                                {% endfor %}
+                                </datalist>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <label for="driver_phone_number">Driver Phone</label>
+                            <input type="text" list="driver_phone" class="form-control mb-2 mr-sm-2" id="driver_phone_number" name="driver_phone_number"
+                                {% if order.driver %}value="{{order.driver.phone_number}}"{% endif %} placeholder="Phone">
+                                <datalist id="driver_phone">
+                                {% for driver in drivers %}
+                                <option value="{{driver.phone_number}}">
+                                {% endfor %}
+                                </datalist>
+                        </div>
+                        <div class="col-12 col-lg-6" id="pickup_time">
+                            <label for="pickup-time">Pickup time</label>
+                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="pickup-time" name="pickup-time"
+                            value="{% if order.date_picked %}{{order.date_picked|date:'Y-m-d'}}T{{order.date_picked|time:'H:i'}}{% endif %}">
+                        </div>
+                        <div class="col-12 col-lg-6" id="delivery_time">
+                            <label for="pickup-time">Delivery time</label>
+                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="delivery-time" name="delivery-time"
+                            value="{% if order.date_delivered %}{{order.date_delivered|date:'Y-m-d'}}T{{order.date_delivered|time:'H:i'}}{% endif %}">
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" form="add_new" data-action="update" class="btn amado-btn mb-2 ml-3">
+                                Update
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="row ">
+        {% include 'foodrider/includes/order-items.html' %}
+        </div>        
+    </div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script>
+
+</script>
+{% endblock scripts %}

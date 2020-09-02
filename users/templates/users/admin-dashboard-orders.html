@@ -1,0 +1,55 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+| Dashboard Orders
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area-al section-padding-100">
+    <div class="container">
+        <div class="row mt-50">
+            <div class="col-12">
+                <div>
+                    <h2 id="head_track">Orders</h2>
+                </div>
+                <div class="table-responsive">
+                    {% if orders %}
+                    <table id="table_id" class="table table-striped users" >
+                        <thead style="font-weight:bold;">
+                            <tr >
+                                <th class="row-ID"> Order ID</th>
+                                <th class="row-name"> Customer</th>
+                                <th class="row-date"> Order Date</th>
+                                <th class="row-items"> Order Total</th>
+                                <th class="row-status"> Order Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}"> Order
+                                        #{{order.id}}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.customer.name}}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.date_ordered}}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_cart_total_actual_price}} for {{order.get_cart_total_items}} items</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_status_display}}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

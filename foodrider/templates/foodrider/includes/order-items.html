@@ -1,0 +1,72 @@
+<div class="col-12">
+    <div class="cart-title mt-50">
+        <h2>Order details for order #{{order.id}}</h2>
+    </div>
+    <div class="cart-summary my-0">
+        <ul class="summary-table my-0">
+            <li><span>restaurant:</span> <span><strong>{{restaurant}}</strong></span></li>
+            <hr style='margin-top:-1em' />
+            <li><span>customer name:</span> <span><strong>{{order.customer.name}}</strong></span></li>
+            <hr style='margin-top:-1em' />
+            <li>
+                <span>shipping address:</span>
+                <span><strong>{{order.shipping_address.address}}</strong><br> Phone:
+                    {{order.shipping_address.phone_number}}
+                </span>
+            </li>
+            <hr style='margin-top:-1em' />
+            <li>Order Items</li>
+            {% for item in order_items %}
+            <li>
+                <span>{{item.menu_item.menu.name}}<br>{{item.menu_item.name}} &times;
+                    <strong>{{item.quantity}}</strong></span>
+                <span>{{item.get_nominal_price_times_quantity}}</span>
+            </li>
+            {% endfor %}
+            <hr style='margin-top:-1em' />
+            <li><span>total discount (-):</span> <span>{{order.get_cart_total_discount_price}}</span></li>
+            {% for item in cart_items %}
+            {% if item.menu_item.discount_price %}
+            <li>
+                <span>Sale {{item.menu_item.discount_price}}&times;{{item.quantity}}</span>
+                <span>{{item.get_discount_price_times_quantity}}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <hr style='margin-top:-1em' />
+            <li><span>delivery (+):</span>
+                <span>{% if order_items %}{{order.delivery_charge}}{% else %}0{% endif %}</span></li>
+            <hr style='margin-top:-1em' />
+            {% if order.razor_order_id %}
+            <li style="font-weight:400;"><span>online transaction charge:</span>
+                <span>{{order.get_cart_total_price_with_trans.charge}}</span>
+            </li>
+            {% endif %}
+            <hr style='margin-top:-1em' />
+            <li style="font-weight:bold;"><span>total:</span>
+                <span>
+                    {% if order_items %}
+                    {% if order.razor_order_id %}
+                    {{order.get_cart_total_price_with_trans.price}}
+                    {% else %}
+                    {{order.get_cart_total_actual_price}}
+                    {% endif %}
+                    {% else %}
+                    0
+                    {% endif %}</span>
+            </li>
+        </ul>
+        <div class="payment-method">
+            <!-- Cash on delivery -->
+            <div>
+                <span class="">Payment method: </span>
+                <span>
+                    {% if order.razor_order_id %}Online (Payment ID: {{order.razor_order_id}})
+                    {% else %}
+                    Cash on Delivery
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+{% for menuoption in menuoptions %}
+<div class="col-sm-2">Menu Option {{forloop.counter}}</div>
+<div class="col-sm-10">
+    <form id="update_{{menuoption.id}}" action="" method="POST">
+    {% csrf_token %}
+        <div class="form-row">
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_id" value="{{menuoption.name}}"
+                    placeholder="Name" required>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control mb-2 mr-sm-2" id="option_type">
+                    <option value="VEG" {% if menuoption.item_type == 'VEG' %}selected="selected" {% endif %}>Veg
+                    </option>
+                    <option value="NVG" {% if menuoption.item_type == 'NVG' %}selected="selected" {% endif %}>Non-Veg
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control mb-2 mr-sm-2" id="option_dish">
+                    <option value="M" {% if menuoption.dish_type == 'M' %}selected="selected" {% endif %}>Main Course
+                    </option>
+                    <option value="S" {% if menuoption.dish_type == 'S' %}selected="selected" {% endif %}>Starters
+                    </option>
+                    <option value="D" {% if menuoption.dish_type == 'D' %}selected="selected" {% endif %}>Dessert
+                    </option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_price"
+                    value="{{menuoption.nominal_price}}" placeholder="Price" required>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_discount"
+                    value="{{menuoption.discount_price}}" placeholder="0.00">
+            </div>
+            <button type="submit" data-action="update"
+                class="btn btn-primary btn-sm mb-2 ml-2 create-or-update" style="height:30px;">
+                Upd
+            </button>
+            <button type="submit" data-action="delete"
+                class="btn btn-primary btn-sm mb-2 ml-2 create-or-update" style="height:30px;">
+                Del
+            </button>
+        </div>
+    </form>
+</div>
+{% endfor %}
+<div class="col-sm-2"> Add New</div>
+<div class="col-sm-10">
+    <form id="add_new" action="" method="POST">
+    {% csrf_token %}
+        <div class="form-row">
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_id" name="option_id" placeholder="Name" required>
+
+            </div>
+
+            <div class="col-lg-2">
+                <select class="form-control mb-2 mr-sm-2" id="option_type" name="option_type">
+                    <option value="VEG">Veg</option>
+                    <option value="NVG">Non-Veg</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control mb-2 mr-sm-2" id="option_dish" name="option_dish">
+                    <option value="M">Main Course</option>
+                    <option value="S">Starters</option>
+                    <option value="D">Dessert</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_price" name="option_price" placeholder="Price" required>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="option_discount" name="option_discount" placeholder="Discount">
+            </div>
+
+            <button type="submit" data-menuoptionname='new_name' data-menuoptionitem='new_item'
+                data-menuoptiondish='new_dish' data-menuoptionnp='new_np' data-menuoptiondp='new_' data-action="add"
+                class="btn btn-primary btn-sm mb-2 ml-2 create-or-update" style="height:30px;">
+                Add
+            </button>
+        </div>
+</div>
+</form>

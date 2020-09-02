@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+| Dashboard Orders Details
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row mt-50">
+            <div class="col-12">
+                <div class="cart-title mt-50">
+                    <h2>Customer details</h2>
+                </div>
+                <div class="cart-summary my-0">
+                    <ul class="summary-table my-0">
+                        <li><span>customer name:</span> <span><strong>{{customer.name}}</strong></span></li>
+                        <li>Orders</li>
+                        {% for order in orders %}
+                        <li>
+                            <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">
+                                {{forloop.counter}} -- Order #{{order.id}} -- Tracking ID: {{order.transaction_id}}
+                                </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script>
+
+</script>
+{% endblock scripts %}

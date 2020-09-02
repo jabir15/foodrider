@@ -1,0 +1,55 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+| Dashboard Customers
+{% endblock title %}
+{% block content %}
+<div class="cart-table-area-al section-padding-100">
+    <div class="container">
+        <div class="row mt-50">
+            <div class="col-12">
+                <div>
+                    <h2 id="head_track">Customers</h2>
+                </div>
+                <div class="table-responsive">
+                    {% if customers %}
+                    <table id="table_id" class="table table-striped users" >
+                        <thead style="font-weight:bold;">
+                            <tr >
+                                <th class="row-ID"> ID</th>
+                                <th class="row-name"> Name</th>
+                                <th class="row-date"> Email</th>
+                                <th class="row-items"> Site User</th>
+                                <th class="row-status"> Total Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in customers %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}"> Customer
+                                        #{{customer.id}}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{customer.name}} {% if customer.user %}({{customer.user.username}}){% endif %}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{customer.email}}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{% if customer.user %}Yes {% else %}No<br>(send email with offers){% endif %}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{ customer.order_set.all.count }}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
