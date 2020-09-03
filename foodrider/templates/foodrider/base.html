@@ -83,10 +83,13 @@
                 {% with request.resolver_match.url_name as url_name %}
                     <ul>
                         <li class="{% if url_name == 'index' %}active{% endif %}"><a href="{%url 'index' %}">Home</a></li>
-                        <li class="{% if url_name == 'restaurant-list' %}active{% endif %}"><a href="{%url 'restaurant-list' %}">Restaurant</a></li>
+                        <li class="{% if url_name == 'restaurant-list' %}active{% endif %}"><a href="{%url 'restaurant-list' %}">Restaurants</a></li>
                         <li class="{% if url_name == 'cart' %}active{% endif %}"><a href="{%url 'cart' %}">Cart</a></li>
                         {% if user.is_authenticated %}
-                        <li class="{% if url_name == 'your-orders' %}active{% endif %}"><a href="{% url 'your-orders' %}">Your Orders</a></li>
+                            {% if user.username == "foodrider_admin" %}
+                                <li class="{% if url_name == 'admin-dashboard' %}active{% endif %}"><a href="{% url 'admin-dashboard' %}">Dashboard</a></li>
+                            {% endif %}
+                        <li class="{% if url_name == 'your-orders' %}active{% endif %}"><a href="{% url 'your-orders' %}">Your Account</a></li>
                         {% else %}
                         <li class="{% if url_name == 'track-orders' %}active{% endif %}"><a href="{% url 'track-orders' %}">Track Orders</a></li>
                         {% endif %}
@@ -96,7 +99,7 @@
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 {% if user.is_authenticated %}
-                <a href="#" class="btn amado-btn mb-15">{{user.username}}</a>
+                <a href="{% url 'your-orders' %}" class="btn amado-btn mb-15">{{user.username}}</a>
                 <a href="{% url 'logout' %}" class="btn amado-btn active">Logout</a>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn amado-btn mb-15">Login / Register </a>
