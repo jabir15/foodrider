@@ -13,9 +13,9 @@
                 </div>
                 <div class="table-responsive">
                     {% if orders %}
-                    <table id="table_id" class="table table-striped users" >
+                    <table id="table_id" class="table table-striped users">
                         <thead style="font-weight:bold;">
-                            <tr >
+                            <tr>
                                 <th class="row-ID"> Order ID</th>
                                 <th class="row-name"> Customer</th>
                                 <th class="row-date"> Order Date</th>
@@ -31,16 +31,20 @@
                                         #{{order.id}}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.customer.name}}</a>
+                                    <a
+                                        href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.customer.name}}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.date_ordered}}</a>
+                                    <a
+                                        href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.date_ordered}}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_cart_total_actual_price}} for {{order.get_cart_total_items}} items</a>
+                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_cart_total_actual_price}}
+                                        for {{order.get_cart_total_items}} items</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_status_display}}</a>
+                                    <a
+                                        href="{% url 'admin-order-details' transactionid=order.transaction_id %}">{{order.get_status_display}}</a>
                                 </td>
                             </tr>
                             {% endfor %}

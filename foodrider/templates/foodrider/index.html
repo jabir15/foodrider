@@ -7,29 +7,34 @@
 <div class="products-catagories-area clearfix ">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
-        <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('{% static 'foodrider/img/bg-img/bk1.jpg' %}')"></div>
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active"
+                style="background-image: url('{% static 'foodrider/img/bg-img/bk1.jpg' %}')"></div>
             <div class="carousel-caption d-md-block">
-            <h2 class="display-1" style="color:white; font-family: 'Berkshire Swash',handwriting; text-shadow:0px 3px 5px #7A7A7A;">Food Rider</h2>
-            <a style="margin:30px 0;" class="btn amado-btn" href="{% url 'restaurant-list' %}">Order Now</a>
-            <p class="hline lead" style="color:white;">Good Food | Good Time</p>   
-            
+                <h2 class="display-1"
+                    style="color:white; font-family: 'Berkshire Swash',handwriting; text-shadow:0px 3px 5px #7A7A7A;">
+                    Food Rider</h2>
+                <a style="margin:30px 0;" class="btn amado-btn" href="{% url 'restaurant-list' %}">Order Now</a>
+                <p class="hline lead" style="color:white;">Good Food | Good Time</p>
+
             </div>
-        <div class="carousel-item" style="background-image: url('{% static 'foodrider/img/bg-img/bk3.jpg' %}')"></div>
-        <div class="carousel-item" style="background-image: url('{% static 'foodrider/img/bg-img/bk4.jpg' %}')"></div>
+            <div class="carousel-item" style="background-image: url('{% static 'foodrider/img/bg-img/bk3.jpg' %}')">
+            </div>
+            <div class="carousel-item" style="background-image: url('{% static 'foodrider/img/bg-img/bk4.jpg' %}')">
+            </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
-            </a>
+        </a>
         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
         </a>
     </div>
     <section class="newsletter-area section-padding-100-0">
@@ -40,7 +45,9 @@
                     <div class="newsletter-text text-center">
                         <p class="display-4">About Us </p>
                         <h2>Quality Ingredients, Tasty Meals</h2>
-                        <p>Food Rider is a food ordering and delivery company based in silchar, Assam. Food Rider was inspired with thought of connecting the foodies with their favorite eating places in a common centralized portal.</p>
+                        <p>Food Rider is a food ordering and delivery company based in silchar, Assam. Food Rider was
+                            inspired with thought of connecting the foodies with their favorite eating places in a
+                            common centralized portal.</p>
                     </div>
                 </div>
             </div>
@@ -61,7 +68,7 @@
             </div>
         </div>
     </section>
-    
+
 </div>
 
 {% endblock content %}

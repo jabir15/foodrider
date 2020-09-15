@@ -19,7 +19,7 @@
                         <li>
                             <a href="{% url 'admin-order-details' transactionid=order.transaction_id %}">
                                 {{forloop.counter}} -- Order #{{order.id}} -- Tracking ID: {{order.transaction_id}}
-                                </a>
+                            </a>
                         </li>
                         {% endfor %}
                     </ul>

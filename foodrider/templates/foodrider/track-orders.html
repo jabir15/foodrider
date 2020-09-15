@@ -13,90 +13,89 @@
             <div class="col-12 col-lg-8">
                 <form id="transactionid" method="POST" action="{% url 'track-orders' %}">
                     {% csrf_token %}
-                        <div class="col-12 col-lg-8 p-0 pr-2">
-                            {% comment %} <label class="sr-only" for="transactionid">Track your order</label> {% endcomment %}
-                            <input
-                                type="text"
-                                style="border:0; border-radius: 0; border-bottom: 1px solid #505050;"
-                                class="form-control mb-2"
-                                name="transactionid"
-                                id="transactionid" placeholder="Tracking ID"
-                                required>
-                        </div>
-                        <div class="col-4 p-0 pr-2">
-                            <button type="submit" style="padding:8px 32px; border:none;">Submit</button>
-                        </div>
+                    <div class="col-12 col-lg-8 p-0 pr-2">
+                        {% comment %} <label class="sr-only" for="transactionid">Track your order</label>
+                        {% endcomment %}
+                        <input type="text" style="border:0; border-radius: 0; border-bottom: 1px solid #505050;"
+                            class="form-control mb-2" name="transactionid" id="transactionid" placeholder="Tracking ID"
+                            required>
+                    </div>
+                    <div class="col-4 p-0 pr-2">
+                        <button type="submit" style="padding:8px 32px; border:none;">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
         {% if order %}
-            <div class="row" style="margin-top:50px;">
-                <div class="col-12">
-                    <div class="progressContainer">
+        <div class="row" style="margin-top:50px;">
+            <div class="col-12">
+                <div class="progressContainer">
 
-                        <ul class="progressb">
-                            <li class="progress__item progress__item--completed">
-                                <p class="progress__title">Order Placed</p>
-                                <p class="progress__info">{{order.date_ordered}}</p>
-                            </li>
+                    <ul class="progressb">
+                        <li class="progress__item progress__item--completed">
+                            <p class="progress__title">Order Placed</p>
+                            <p class="progress__info">{{order.date_ordered}}</p>
+                        </li>
 
-                            <li
-                                class="progress__item {% if order.status == 1 %}progress__item--active {% elif order.status >= 2 %}progress__item--completed {% else%} {%endif%}">
-                                {% if order.status == 1 %}
-                                <p class="progress__title">Order is being confirmed</p>
-                                {%elif order.status >= 2 %}
-                                <p class="progress__title">Order Confirmed</p>
-                                <p class="progress__info">Your order will be delivered soon. Tracking id: <span class="tid">{{order.transaction_id}}</span></p>
-                                {% else %}{% endif %}
-                            </li>
-                            <li
-                                class="progress__item {% if order.status == 2 %}progress__item--active {%elif order.status >= 3 %}progress__item--completed {% else%} {%endif%}">
-                                {% if order.status == 2 %}
-                                <p class="progress__title">Order is in Kitchen</p>
-                                <p class="progress__info">Your food is being prepared</p>
-                                {%elif order.status > 2 %}
-                                <p class="progress__title">Order Prepared</p>
-                                <p class="progress__info">All food items in the order has been prepared</p>
-                                {% else %}{% endif %}
-                            </li>
-                            <li
-                                class="progress__item {% if order.status == 3 %}progress__item--active {%elif order.status >= 4 %}progress__item--completed {% else%} {%endif%}">
-                                {% if order.status == 3 %}
-                                <p class="progress__title">Order Processing</p>
-                                <p class="progress__info">Your order is being prepared for package and delivery</p>
-                                {%elif order.status > 3 %}
-                                <p class="progress__title">Order Picked Up</p>
-                                <p class="progress__info">at {{order.date_picked}}
-                                {% if order.driver %} by {{order.driver.name}}--{{order.driver.phone_number}}</p>{% endif %}
-                                {% else %}{% endif %}
-                            </li>
-                            <li
-                                class="progress__item {% if order.status == 4 %}progress__item--active {%elif order.status >= 5 %}progress__item--completed {% else%} {%endif%}">
-                                {% if order.status == 4 %}
-                                <p class="progress__title">On the way</p>
-                                {%elif order.status == 5 %}
-                                <p class="progress__title">Order Delivered</p>
-                                <p class="progress__info">{{order.date_delivered}}</p>
-                                {% else %}{% endif %}
-                            </li>
-                        </ul>
+                        <li
+                            class="progress__item {% if order.status == 1 %}progress__item--active {% elif order.status >= 2 %}progress__item--completed {% else%} {%endif%}">
+                            {% if order.status == 1 %}
+                            <p class="progress__title">Order is being confirmed</p>
+                            {%elif order.status >= 2 %}
+                            <p class="progress__title">Order Confirmed</p>
+                            <p class="progress__info">Your order will be delivered soon. Tracking id: <span
+                                    class="tid">{{order.transaction_id}}</span></p>
+                            {% else %}{% endif %}
+                        </li>
+                        <li
+                            class="progress__item {% if order.status == 2 %}progress__item--active {%elif order.status >= 3 %}progress__item--completed {% else%} {%endif%}">
+                            {% if order.status == 2 %}
+                            <p class="progress__title">Order is in Kitchen</p>
+                            <p class="progress__info">Your food is being prepared</p>
+                            {%elif order.status > 2 %}
+                            <p class="progress__title">Order Prepared</p>
+                            <p class="progress__info">All food items in the order has been prepared</p>
+                            {% else %}{% endif %}
+                        </li>
+                        <li
+                            class="progress__item {% if order.status == 3 %}progress__item--active {%elif order.status >= 4 %}progress__item--completed {% else%} {%endif%}">
+                            {% if order.status == 3 %}
+                            <p class="progress__title">Order Processing</p>
+                            <p class="progress__info">Your order is being prepared for package and delivery</p>
+                            {%elif order.status > 3 %}
+                            <p class="progress__title">Order Picked Up</p>
+                            <p class="progress__info">at {{order.date_picked}}
+                                {% if order.driver %} by {{order.driver.name}}--{{order.driver.phone_number}}</p>
+                            {% endif %}
+                            {% else %}{% endif %}
+                        </li>
+                        <li
+                            class="progress__item {% if order.status == 4 %}progress__item--active {%elif order.status >= 5 %}progress__item--completed {% else%} {%endif%}">
+                            {% if order.status == 4 %}
+                            <p class="progress__title">On the way</p>
+                            {%elif order.status == 5 %}
+                            <p class="progress__title">Order Delivered</p>
+                            <p class="progress__info">{{order.date_delivered}}</p>
+                            {% else %}{% endif %}
+                        </li>
+                    </ul>
 
-                    </div>
                 </div>
-                {% include 'foodrider/includes/order-items.html' %}
             </div>
+            {% include 'foodrider/includes/order-items.html' %}
+        </div>
         {% else %}
-            {% if found == 'false' %}
-            <div class="row" style="margin-top:50px;">
-                <div class="col-12">
-                    <div class="progressContainer">
-                        <h5 style="padding:">
-                            Order not found
-                        </h5>
-                    </div>
+        {% if found == 'false' %}
+        <div class="row" style="margin-top:50px;">
+            <div class="col-12">
+                <div class="progressContainer">
+                    <h5 style="padding:">
+                        Order not found
+                    </h5>
                 </div>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
         {% endif %}
     </div>
 </div>

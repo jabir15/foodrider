@@ -17,33 +17,34 @@
                     {% for item in menu_items %}
                     <div class="card mb-3">
                         <div class="card-header" data-toggle="collapse" data-target="#collapse{{item.id}}"
-                                    aria-expanded="true" aria-controls="collapse{{item.id}}">
+                            aria-expanded="true" aria-controls="collapse{{item.id}}">
                             <h5 class="mb-0">
-                                    {{item.name}}
+                                {{item.name}}
                             </h5>
                         </div>
                         <div id="collapse{{item.id}}" class="collapse" aria-labelledby="heading{{item.id}}"
                             data-parent="#myacc">
                             <div class="card-body">
-                            <ul>
-                                {% for option in item.get_all_options %}
-    
+                                <ul>
+                                    {% for option in item.get_all_options %}
+
                                     <li style="text-align: right;" class="card-text p-1 m-3 border-bottom">
                                         {% if option.discount_price %}
                                         <span class="badge badge-dark p-2 font-weight-normal">Sale</span>
                                         {% endif%}
                                         <span>{{option.name}} &mdash;</span>
                                         {% if option.discount_price %}
-                                        <span style="opacity:0.5; text-decoration:line-through">{{option.nominal_price}}</span>
+                                        <span
+                                            style="opacity:0.5; text-decoration:line-through">{{option.nominal_price}}</span>
                                         {% endif %}
                                         <span>{{option.get_actual_price}}</span>
-        
+
                                         <button data-restaurant={{item.restaurant.id}} data-product={{option.id}}
                                             data-action="add" class="btn amado-btn-plus fa fa-plus update-cart">
                                         </button>
-                                    </li> 
-                                {% endfor %}
-                            </ul>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -52,18 +53,18 @@
             </div>
 
             <div class="col-12 col-lg-4">
-            <div class="cart-summary">
-                <h5>Cart Summary</h5>
-                <div id="cartsummary">
-                    {% include 'foodrider/includes/cart-summary.html' %}
-                </div>
-                <div class="cart-btn mt-50">
-                    <a href="{% url 'cart' %}" class="btn amado-btn w-100">Proceed to Cart</a>
+                <div class="cart-summary">
+                    <h5>Cart Summary</h5>
+                    <div id="cartsummary">
+                        {% include 'foodrider/includes/cart-summary.html' %}
+                    </div>
+                    <div class="cart-btn mt-50">
+                        <a href="{% url 'cart' %}" class="btn amado-btn w-100">Proceed to Cart</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock content %}
 

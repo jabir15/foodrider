@@ -13,9 +13,9 @@
                 </div>
                 <div class="table-responsive">
                     {% if customers %}
-                    <table id="table_id" class="table table-striped users" >
+                    <table id="table_id" class="table table-striped users">
                         <thead style="font-weight:bold;">
-                            <tr >
+                            <tr>
                                 <th class="row-ID"> ID</th>
                                 <th class="row-name"> Name</th>
                                 <th class="row-date"> Email</th>
@@ -31,16 +31,19 @@
                                         #{{customer.id}}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{customer.name}} {% if customer.user %}({{customer.user.username}}){% endif %}</a>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{customer.name}}
+                                        {% if customer.user %}({{customer.user.username}}){% endif %}</a>
                                 </td>
                                 <td>
                                     <a href="{% url 'admin-customer-details' cid=customer.id %}">{{customer.email}}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{% if customer.user %}Yes {% else %}No<br>(send email with offers){% endif %}</a>
+                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{% if customer.user %}Yes
+                                        {% else %}No<br>(send email with offers){% endif %}</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'admin-customer-details' cid=customer.id %}">{{ customer.order_set.all.count }}</a>
+                                    <a
+                                        href="{% url 'admin-customer-details' cid=customer.id %}">{{ customer.order_set.all.count }}</a>
                                 </td>
                             </tr>
                             {% endfor %}
