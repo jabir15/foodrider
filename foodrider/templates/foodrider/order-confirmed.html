@@ -12,22 +12,25 @@
                     <h2>Track your order</h2>
                 </div>
                 <div class="progressContainer">
-                
+
                     <ul class="progressb">
                         <li class="progress__item progress__item--completed">
                             <p class="progress__title">Order Placed</p>
                             <p class="progress__info">{{order.date_ordered}}</p>
                         </li>
-                        
-                        <li class="progress__item {% if order.status == 1 %}progress__item--active {%elif order.status >= 2 %}progress__item--completed {% else%} {%endif%}">
+
+                        <li
+                            class="progress__item {% if order.status == 1 %}progress__item--active {%elif order.status >= 2 %}progress__item--completed {% else%} {%endif%}">
                             {% if order.status == 1 %}
                             <p class="progress__title">Order is being confirmed</p>
                             {%elif order.status >= 2 %}
                             <p class="progress__title">Order Confirmed</p>
-                            <p class="progress__info">Your order will be delivered soon. Tracking id: {{order.transaction_id|upper}}</p>
+                            <p class="progress__info">Your order will be delivered soon. Tracking id:
+                                {{order.transaction_id|upper}}</p>
                             {% else %}{% endif %}
                         </li>
-                        <li class="progress__item {% if order.status == 2 %}progress__item--active {%elif order.status >= 3 %}progress__item--completed {% else%} {%endif%}">
+                        <li
+                            class="progress__item {% if order.status == 2 %}progress__item--active {%elif order.status >= 3 %}progress__item--completed {% else%} {%endif%}">
                             {% if order.status == 2 %}
                             <p class="progress__title">Order is in Kitchen</p>
                             <p class="progress__info">Your food is being prepared</p>
@@ -36,7 +39,8 @@
                             <p class="progress__info">All food items in the order has been prepared</p>
                             {% else %}{% endif %}
                         </li>
-                        <li class="progress__item {% if order.status == 3 %}progress__item--active {%elif order.status >= 4 %}progress__item--completed {% else%} {%endif%}">
+                        <li
+                            class="progress__item {% if order.status == 3 %}progress__item--active {%elif order.status >= 4 %}progress__item--completed {% else%} {%endif%}">
                             {% if order.status == 3 %}
                             <p class="progress__title">Order Processing</p>
                             <p class="progress__info">Your order is being prepared for package and delivery</p>
@@ -45,7 +49,8 @@
                             <p class="progress__info">{{order.date_picked}}</p>
                             {% else %}{% endif %}
                         </li>
-                        <li class="progress__item {% if order.status == 4 %}progress__item--active {%elif order.status >= 5 %}progress__item--completed {% else%} {%endif%}">
+                        <li
+                            class="progress__item {% if order.status == 4 %}progress__item--active {%elif order.status >= 5 %}progress__item--completed {% else%} {%endif%}">
                             {% if order.status == 4 %}
                             <p class="progress__title">On the way</p>
                             <p class="progress__info">Delivery details: </p>
@@ -99,9 +104,9 @@
                             <span>Payment method: </span>
                             <span>
                                 {% if order.razor_order_id %}Online (Payment ID: {{order.razor_order_id}})
-                                    <span>+2\%: Total: {{order.get_cart_total_price_with_trans}}</span>
+                                <span>+2\%: Total: {{order.get_cart_total_price_with_trans}}</span>
                                 {% else %}
-                                    Cash on Delivery
+                                Cash on Delivery
                                 {% endif %}
                             </span>
                         </div>

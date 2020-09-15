@@ -11,14 +11,15 @@
     <!-- Title  -->
     {% load static %}
     <title>
-    Food Rider {% block title %}{% endblock title%}
+        Food Rider {% block title %}{% endblock title%}
     </title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{% static 'foodrider/img/core-img/favicon.ico' %}">
 
     <!-- Core Style CSS -->
-    {% comment %} <link rel="stylesheet" href="css/core-style.css"> {% endcomment %}
+    {% comment %}
+    <link rel="stylesheet" href="css/core-style.css"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'foodrider/css/core-style.css'%}">
     <link rel="stylesheet" href="{% static 'foodrider/css/style.css' %}">
     <script type="text/javascript">
@@ -38,7 +39,8 @@
                     <div class="search-content">
                         <form action="#" method="get">
                             <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="{% static 'foodrider/img/core-img/search.png'%}" alt=""></button>
+                            <button type="submit"><img src="{% static 'foodrider/img/core-img/search.png'%}"
+                                    alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -59,11 +61,11 @@
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
                 <span></span><span></span><span></span>
-            </div>  
+            </div>
             <a href="{% url 'cart' %}">
                 <i class="fas fa fa-shopping-cart fa-lg"></i>
                 <span class="cart-basket d-flex align-items-center justify-content-center">
-                0
+                    0
                 </span>
             </a>
         </div>
@@ -81,19 +83,23 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 {% with request.resolver_match.url_name as url_name %}
-                    <ul>
-                        <li class="{% if url_name == 'index' %}active{% endif %}"><a href="{%url 'index' %}">Home</a></li>
-                        <li class="{% if url_name == 'restaurant-list' %}active{% endif %}"><a href="{%url 'restaurant-list' %}">Restaurants</a></li>
-                        <li class="{% if url_name == 'cart' %}active{% endif %}"><a href="{%url 'cart' %}">Cart</a></li>
-                        {% if user.is_authenticated %}
-                            {% if user.username == "foodrider_admin" %}
-                                <li class="{% if url_name == 'admin-dashboard' %}active{% endif %}"><a href="{% url 'admin-dashboard' %}">Dashboard</a></li>
-                            {% endif %}
-                        <li class="{% if url_name == 'your-orders' %}active{% endif %}"><a href="{% url 'your-orders' %}">Your Account</a></li>
-                        {% else %}
-                        <li class="{% if url_name == 'track-orders' %}active{% endif %}"><a href="{% url 'track-orders' %}">Track Orders</a></li>
-                        {% endif %}
-                    </ul>
+                <ul>
+                    <li class="{% if url_name == 'index' %}active{% endif %}"><a href="{%url 'index' %}">Home</a></li>
+                    <li class="{% if url_name == 'restaurant-list' %}active{% endif %}"><a
+                            href="{%url 'restaurant-list' %}">Restaurants</a></li>
+                    <li class="{% if url_name == 'cart' %}active{% endif %}"><a href="{%url 'cart' %}">Cart</a></li>
+                    {% if user.is_authenticated %}
+                    {% if user.username == "foodrider_admin" %}
+                    <li class="{% if url_name == 'admin-dashboard' %}active{% endif %}"><a
+                            href="{% url 'admin-dashboard' %}">Dashboard</a></li>
+                    {% endif %}
+                    <li class="{% if url_name == 'your-orders' %}active{% endif %}"><a
+                            href="{% url 'your-orders' %}">Your Account</a></li>
+                    {% else %}
+                    <li class="{% if url_name == 'track-orders' %}active{% endif %}"><a
+                            href="{% url 'track-orders' %}">Track Orders</a></li>
+                    {% endif %}
+                </ul>
                 {% endwith %}
             </nav>
             <!-- Button Group -->
@@ -129,12 +135,18 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="{% url 'index' %}"><img src="{% static 'foodrider/img/core-img/logo2.png'%}" alt=""></a>
+                            <a href="{% url 'index' %}"><img src="{% static 'foodrider/img/core-img/logo2.png'%}"
+                                    alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        <p class="copywrite">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
@@ -143,9 +155,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                         <!-- Footer Menu -->
                         <div class="footer_menu">
                             <nav class="navbar navbar-expand-lg justify-content-end">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#footerNavContent" aria-controls="footerNavContent"
+                                    aria-expanded="false" aria-label="Toggle navigation"><i
+                                        class="fa fa-bars"></i></button>
                                 <div class="collapse navbar-collapse" id="footerNavContent">
-                                {% with request.resolver_match.url_name as url_name %}
+                                    {% with request.resolver_match.url_name as url_name %}
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item {% if url_name == 'index' %}active{% endif %}">
                                             <a class="nav-link" href="{% url 'index' %}">Home</a>
@@ -166,7 +181,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         </li>
                                         {% endif %}
                                     </ul>
-                                {% endwith %}
+                                    {% endwith %}
                                 </div>
                             </nav>
                         </div>
@@ -176,36 +191,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
-    
+
     <script type="text/javascript">
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
-    var cart = JSON.parse(getCookie('cart'));
-    if (cart==undefined){
-        cart = {}
-        document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/"
-    }
-    var cartvalue = 0
-    for (i=0; i<Object.values(cart).length; i++){
-        cartvalue += Object.values(cart)[i]["quantity"]
-    }
-    document.getElementsByClassName('cart-basket')[0].innerText = cartvalue
+        const csrftoken = getCookie('csrftoken');
+        var cart = JSON.parse(getCookie('cart'));
+        if (cart == undefined) {
+            cart = {}
+            document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        var cartvalue = 0
+        for (i = 0; i < Object.values(cart).length; i++) {
+            cartvalue += Object.values(cart)[i]["quantity"]
+        }
+        document.getElementsByClassName('cart-basket')[0].innerText = cartvalue
     </script>
-    
+
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
     <script src="{%static 'foodrider/js/jquery/jquery-2.2.4.min.js'%}"></script>
     <!-- Popper js -->
@@ -217,7 +232,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Active js -->
     <script src="{%static 'foodrider/js/active.js'%}"></script>
     {% block scripts %}
-        
+
     {% endblock scripts %}
 
 </body>

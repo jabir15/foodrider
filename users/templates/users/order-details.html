@@ -8,7 +8,8 @@
     <div class="container-fluid">
         <div class="row mt-100">
             <div class='col-12'>
-                <form id="add_new" action="{% url 'admin-order-details' transactionid=order.transaction_id %}" method="POST">
+                <form id="add_new" action="{% url 'admin-order-details' transactionid=order.transaction_id %}"
+                    method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-12 col-lg-4">
@@ -30,39 +31,44 @@
                     <div class="row">
                         <div class="d-none col-12 col-lg-4" id="driver_namefield">
                             <label for="driver_name">Driver Name</label>
-                            <input type="text" list="driver_names" class="form-control mb-2 mr-sm-2" id="driver_name" name="driver_name"
-                                {% if order.driver %}value="{{order.driver.name}}"{% endif %} placeholder="Name">
-                                <datalist id="driver_names">
+                            <input type="text" list="driver_names" class="form-control mb-2 mr-sm-2" id="driver_name"
+                                name="driver_name" {% if order.driver %}value="{{order.driver.name}}" {% endif %}
+                                placeholder="Name">
+                            <datalist id="driver_names">
                                 {% for driver in drivers %}
                                 <option value="{{driver.name}}">
-                                {% endfor %}
-                                </datalist>
+                                    {% endfor %}
+                            </datalist>
                         </div>
                         <div class="d-none col-12 col-lg-4" id="driver_phonefield">
                             <label for="driver_phone_number">Driver Phone</label>
-                            <input type="tel" list="driver_phones" class="form-control mb-2 mr-sm-2" id="driver_phone" name="driver_phone_number"
-                                maxlength="10", minlength="10" pattern="[6-9]{1}[0-9]{9}" title="10 digit phone number without any country codes"
-                                {% if order.driver %}value="{{order.driver.phone_number}}"{% endif %} placeholder="Phone">
-                                <datalist id="driver_phones">
+                            <input type="tel" list="driver_phones" class="form-control mb-2 mr-sm-2" id="driver_phone"
+                                name="driver_phone_number" maxlength="10" , minlength="10" pattern="[6-9]{1}[0-9]{9}"
+                                title="10 digit phone number without any country codes"
+                                {% if order.driver %}value="{{order.driver.phone_number}}" {% endif %}
+                                placeholder="Phone">
+                            <datalist id="driver_phones">
                                 {% for driver in drivers %}
                                 <option value="{{driver.phone_number}}">
-                                {% endfor %}
-                                </datalist>
+                                    {% endfor %}
+                            </datalist>
                         </div>
                         <div class="d-none col-12 col-lg-4" id="pickup_time">
                             <label for="pickup-times">Pickup time</label>
-                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="pickup-times" name="pickup-time"
-                            value="{% if order.date_picked %}{{order.date_picked|date:'Y-m-d'}}T{{order.date_picked|time:'H:i'}}{% endif %}">
+                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="pickup-times"
+                                name="pickup-time"
+                                value="{% if order.date_picked %}{{order.date_picked|date:'Y-m-d'}}T{{order.date_picked|time:'H:i'}}{% endif %}">
                         </div>
                         <div class="d-none col-12 col-lg-4" id="delivery_time">
                             <label for="delivery-times">Delivery time</label>
-                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="delivery-times" name="delivery-time"
-                            value="{% if order.date_delivered %}{{order.date_delivered|date:'Y-m-d'}}T{{order.date_delivered|time:'H:i'}}{% endif %}">
+                            <input type="datetime-local" class="form-control mb-2 mr-sm-2" id="delivery-times"
+                                name="delivery-time"
+                                value="{% if order.date_delivered %}{{order.date_delivered|date:'Y-m-d'}}T{{order.date_delivered|time:'H:i'}}{% endif %}">
                         </div>
                     </div>
                     <div class="row">
                         <button type="submit" form="add_new" data-action="update" class="btn amado-btn mb-2 ml-3">
-                                Update
+                            Update
                         </button>
                     </div>
 
@@ -70,38 +76,38 @@
             </div>
         </div>
         <div class="row ">
-        {% include 'foodrider/includes/order-items.html' %}
-        </div>        
+            {% include 'foodrider/includes/order-items.html' %}
+        </div>
     </div>
 </div>
 {% endblock content %}
 {% block scripts %}
 <script>
-    var selval = parseInt($('#order_status').val(),10)
-    if (selval == 4  ) {
+    var selval = parseInt($('#order_status').val(), 10)
+    if (selval == 4) {
         $("#driver_namefield,#driver_phonefield,#pickup_time").removeClass('d-none');
     }
-    if (selval == 5  ) {
+    if (selval == 5) {
         $("#driver_namefield,#driver_phonefield,#pickup_time").removeClass('d-none');
         $("#delivery_time").removeClass('d-none');
     }
-    $('body').on('change', '#order_status', function(e){
-        var selval = parseInt($(this).val(),10);
+    $('body').on('change', '#order_status', function (e) {
+        var selval = parseInt($(this).val(), 10);
         if (selval < 4) {
             $("#driver_namefield,#driver_phonefield,#pickup_time").addClass('d-none');
             $("#delivery_time").addClass('d-none');
         }
         if (selval == 4) {
             $("#driver_namefield,#driver_phonefield,#pickup_time").removeClass('d-none');
-            $("#driver_name,#driver_phone,#pickup-times").prop('required',true);
+            $("#driver_name,#driver_phone,#pickup-times").prop('required', true);
             $("#delivery_time").addClass('d-none');
         }
         if (selval == 5) {
             $("#driver_namefield,#driver_phonefield,#pickup_time").removeClass('d-none');
-            $("#delivery-times").prop('required',true);
+            $("#delivery-times").prop('required', true);
             $("#delivery_time").removeClass('d-none');
         }
-        
+
 
     })
 </script>

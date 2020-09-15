@@ -19,29 +19,35 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" id="first_name" name="fname"
-                                    value="{{formdata.fname}}" placeholder="First Name" required {% if razor_order %}disabled{% endif %}>
+                                    value="{{formdata.fname}}" placeholder="First Name" required
+                                    {% if razor_order %}disabled{% endif %}>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" id="last_name" name="lname"
-                                    value="{{formdata.lname}}" placeholder="Last Name" required {% if razor_order %}disabled{% endif %}>
+                                    value="{{formdata.lname}}" placeholder="Last Name" required
+                                    {% if razor_order %}disabled{% endif %}>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email"
                                     value="{{formdata.email}}" {% if razor_order %}disabled{% endif %}>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="tel" class="form-control" id="phone_number" name="phone"
-                                    maxlength="10", minlength="10" pattern= "[6-9]{1}[0-9]{9}" title="10 digit phone number without any country codes"
-                                    placeholder="Phone No (10 digits)" value="{{formdata.phone}}" required {% if razor_order %}disabled{% endif %}>
+                                <input type="tel" class="form-control" id="phone_number" name="phone" maxlength="10" ,
+                                    minlength="10" pattern="[6-9]{1}[0-9]{9}"
+                                    title="10 digit phone number without any country codes"
+                                    placeholder="Phone No (10 digits)" value="{{formdata.phone}}" required
+                                    {% if razor_order %}disabled{% endif %}>
                             </div>
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control mb-3" id="street_address" name="address"
-                                    placeholder="Address" value="{{formdata.address}}" required {% if razor_order %}disabled{% endif %}>
+                                    placeholder="Address" value="{{formdata.address}}" required
+                                    {% if razor_order %}disabled{% endif %}>
                             </div>
                             {% if user.is_authenticated and not razor_order %}
                             <div class="col-12 mb-3">
                                 <input type="checkbox" class="form-check-lg" id="make_default" name="make_default">
-                                <label for="make_default" class="form-check-label mb-3">Make this your default address</label>
+                                <label for="make_default" class="form-check-label mb-3">Make this your default
+                                    address</label>
                             </div>
                             {% endif %}
                         </div>
@@ -60,9 +66,9 @@
                                     value="">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="tel" class="form-control" id="phone_number" name="phone"
-                                    maxlength="10", minlength="10" pattern= "[6-9]{1}[0-9]{9}"
-                                    placeholder="Phone No (10 digits)" value="" required>
+                                <input type="tel" class="form-control" id="phone_number" name="phone" maxlength="10" ,
+                                    minlength="10" pattern="[6-9]{1}[0-9]{9}" placeholder="Phone No (10 digits)"
+                                    value="" required>
                             </div>
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control mb-3" id="street_address" name="address"
@@ -125,7 +131,7 @@
                     {% if razor_order %}
 
                     <div class="cart-btn w-80 mt-30 text-center text-success">
-                    <i class="fa fa-check-circle" style="font-size:32px" aria-hidden="true"></i>
+                        <i class="fa fa-check-circle" style="font-size:32px" aria-hidden="true"></i>
                         <p style="line-height:12px;"><small> Pay securely using Razorpay <br>(2% transaction
                                 fees)</small></p>
                         </span>

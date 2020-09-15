@@ -62,21 +62,24 @@
         var is_sel = sib.is(":checked")
         var is_default = $(this).closest('form').find('.hd').hasClass('text-white')
         console.log(is_default)
-        if (action==='delete' && !is_default){
+        if (action === 'delete' && !is_default) {
             alert('Default shipping address cannot be deleted.')
             return false;
-        } else if (action ==='delete'){
+        } else if (action === 'delete') {
             var result = confirm('Are you sure you want to delete?')
-            if (!result){
+            if (!result) {
                 return false;
             }
         }
-        if (action==='update-default' && !$(this).hasClass('text-white')){
+        if (action === 'update-default' && !$(this).hasClass('text-white')) {
             return false;
         }
-        if (action==='add'){
+        if (action === 'add') {
             var street = $('#ship_address').val()
-            var phone  = $('#ship_phone').val()
+            var phone = $('#ship_phone').val()
+            if (street === '' || phone===''){
+                return false;
+            }
         }
         $.ajax({
             method: "POST",
@@ -85,9 +88,9 @@
                 'update_value': input_text,
                 'shipping_id': shipping_id,
                 'action': action,
-                'make_default':is_sel,
-                'street':street ? street : '',
-                'phone':phone ? phone : '',
+                'make_default': is_sel,
+                'street': street ? street : '',
+                'phone': phone ? phone : '',
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function (data) {
@@ -95,11 +98,11 @@
                 //$(this).closest('div').prev().find('input').val(data['value'])
                 $('#customer_addresses').html(data)
             },
-            error: function(data) {
+            error: function (data) {
                 console.log(data)
             }
         });
-        
+
     }));
 </script>
 {% endblock scripts %}

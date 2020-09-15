@@ -58,62 +58,60 @@
 </div>
 <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Restaurant</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="add-res-form" method="POST" action="{% url 'add-restaurant' %}">{% csrf_token %}
-            <label for="restaurant_name_new">Name of the restaurant</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="restaurant_name_new" name="restaurant_name_new"
-                value="" required
-                placeholder="Enter name">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" form="add-res-form" class="btn btn-primary">Confirm</button>
-        <button type="button" id="cancel-button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-      </div>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add Restaurant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="add-res-form" method="POST" action="{% url 'add-restaurant' %}">{% csrf_token %}
+                <label for="restaurant_name_new">Name of the restaurant</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="restaurant_name_new" name="restaurant_name_new"
+                    value="" required placeholder="Enter name">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" form="add-res-form" class="btn btn-primary">Confirm</button>
+            <button type="button" id="cancel-button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
     </div>
 
 </div>
 
 <div id="myModal2" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Menu Item</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="add-menu-form" method="POST" action="{% url 'add-menu-item' %}">{% csrf_token %}
-            <label for="select-restaurant">Select the restaurant</label>
-            <select class="form-control" id="select-restaurant" name="select-restaurant">
-                                <option value="None">Select Restaurant</option>
-                                {% for restaurant in restaurants %}
-                                <option value="{{restaurant.name}}">
-                                    {{restaurant.name}}
-                                </option>
-                                {% endfor %}
-                            </select>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add Menu Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="add-menu-form" method="POST" action="{% url 'add-menu-item' %}">{% csrf_token %}
+                <label for="select-restaurant">Select the restaurant</label>
+                <select class="form-control" id="select-restaurant" name="select-restaurant">
+                    <option value="None">Select Restaurant</option>
+                    {% for restaurant in restaurants %}
+                    <option value="{{restaurant.name}}">
+                        {{restaurant.name}}
+                    </option>
+                    {% endfor %}
+                </select>
 
-            <label for="menu_name_new">Name of the menu item</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="menu_name_new" name="menu_name_new"
-                value="" required
-                placeholder="Enter name">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" form="add-menu-form" class="btn btn-primary">Confirm</button>
-        <button type="button" id="cancel-button2" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-      </div>
+                <label for="menu_name_new">Name of the menu item</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="menu_name_new" name="menu_name_new" value=""
+                    required placeholder="Enter name">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" form="add-menu-form" class="btn btn-primary">Confirm</button>
+            <button type="button" id="cancel-button2" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
     </div>
 
 </div>
@@ -170,7 +168,8 @@
         var menu_option_np = $(this).closest("form").find("input[id='option_price']").val();
         var menu_option_dp = $(this).closest("form").find("input[id='option_discount']").val();
         var action = this.dataset.action;
-        if (menu_option_name === '' || menu_option_np === '' || menu_name === 'None' || restaurant_name === 'None'){
+        if (menu_option_name === '' || menu_option_np === '' || menu_name === 'None' || restaurant_name ===
+            'None') {
             console.log('Add the fields')
             return false;
         }
@@ -222,53 +221,51 @@
     });
 
 
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var cnlBtn = document.getElementById("cancel-button");
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-cnlBtn.onclick = function(){
-    modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    var cnlBtn = document.getElementById("cancel-button");
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    cnlBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 
-var modal2 = document.getElementById("myModal2");
-var btn2 = document.getElementById("myBtn2");
-// Get the <span> element that closes the modal
-var span2 = document.getElementsByClassName("close")[1];
-var cnlBtn2 = document.getElementById("cancel-button2");
-// When the user clicks on the button, open the modal
-btn2.onclick = function() {
-  modal2.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span2.onclick = function() {
-  modal2.style.display = "none";
-}
-cnlBtn2.onclick = function(){
-    modal2.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal2) {
-    modal2.style.display = "none";
-  }
-}
-
-
+    var modal2 = document.getElementById("myModal2");
+    var btn2 = document.getElementById("myBtn2");
+    // Get the <span> element that closes the modal
+    var span2 = document.getElementsByClassName("close")[1];
+    var cnlBtn2 = document.getElementById("cancel-button2");
+    // When the user clicks on the button, open the modal
+    btn2.onclick = function () {
+        modal2.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span2.onclick = function () {
+        modal2.style.display = "none";
+    }
+    cnlBtn2.onclick = function () {
+        modal2.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    }
 </script>
 {% endblock scripts %}
