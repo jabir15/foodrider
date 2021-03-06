@@ -124,3 +124,4 @@ LOGOUT_REDIRECT_URL = 'index'
 
 RAZORPAY_API = os.getenv("RAZORPAY_API")
 RAZORPAY_SECRET = os.getenv("RAZORPAY_SECRET")
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
