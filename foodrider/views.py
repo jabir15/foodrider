@@ -128,6 +128,9 @@ def orderPlaced(request):
     shipping.save()
     order.shipping_address = shipping
     order.save()
+    
+    order_items = order.orderdetail_set.all()
+    restaurant = order_items[0].menu_item.menu.restaurant.name
 
     base_amount = int(order.get_cart_total_actual_price*100)
     trans_charge = base_amount*0.02
@@ -142,11 +145,10 @@ def orderPlaced(request):
         razor_order = client.order.create(r_data)
         order.razor_order_id = razor_order['id']
         order.save()
-        order_items = order.orderdetail_set.all()
         formdata = {
             'fname': shipping.customer.name.strip().split(' ')[0],
             'lname':' '.join(shipping.customer.name.strip().split(' ')[1:]),
-            'email':shipping.customer.email,
+            'email':form_data['email'],
             'address':shipping.address,
             'phone':shipping.phone_number,
         }
@@ -156,24 +158,34 @@ def orderPlaced(request):
             'formdata':formdata,
             'razor_order':razor_order,
             'prefill_name':customer.name, 
-            'prefill_email':customer.email, 
+            'prefill_email':form_data['email'], 
             'prefill_contact':shipping.phone_number, 
         }
+        sendEmail(order,form_data['email'])
         return render(request, 'foodrider/checkout.html', context)
     else:
+        sendEmail(order,form_data['email'])
         return redirect('order-confirmed', transactionid=order.transaction_id)
+
+def sendEmail(order,emailid):
+    order_items = order.orderdetail_set.all()
+    restaurant = order_items[0].menu_item.menu.restaurant.name
+
+    subject = f'Order Placed for ID-{order.transaction_id}'
+    content = get_template('foodrider/includes/order-items.html').render({
+        'order':order,
+        'order_items':order_items,
+        'restaurant': restaurant,
+    })
+    from_email = 'assamcollegecode.pythonanywhere@gmail.com'
+    to_email = emailid
+    email_msg = EmailMessage(subject, content, from_email, [to_email])
+    email_msg.content_subtype = 'html'
+    email_msg.send()
 
 def orderConfirmed(request, transactionid):
     context = checkOrder(transactionid)
     response = render(request, 'foodrider/track-orders.html', context )
-    
-    subject = f'Order Confirmation for ID-{transactionid}'
-    content = get_template('foodrider/includes/order-items.html').render(context)
-    from_email = 'assamcollegecode.pythonanywhere@gmail.com'
-    to_email = context['order'].customer.email
-    email = EmailMessage(subject, content, from_email, [to_email])
-    email.content_subtype = 'html'
-    email.send()
     response.delete_cookie('cart')
     return response
 
