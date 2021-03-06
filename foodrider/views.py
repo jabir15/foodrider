@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
+from django.core.mail import BadHeaderError, EmailMessage
+from django.template.loader import get_template
 import json
 from foodrider.models import *
 from .utils import cookieCart, cartData, checkOrder
@@ -164,6 +166,14 @@ def orderPlaced(request):
 def orderConfirmed(request, transactionid):
     context = checkOrder(transactionid)
     response = render(request, 'foodrider/track-orders.html', context )
+    
+    subject = f'Order Confirmation for ID-{transactionid}'
+    content = get_template('foodrider/includes/order-items.html').render(context)
+    from_email = 'assamcollegecode.pythonanywhere@gmail.com'
+    to_email = context['order'].customer.email
+    email = EmailMessage(subject, content, from_email, [to_email])
+    email.content_subtype = 'html'
+    email.send()
     response.delete_cookie('cart')
     return response
 
