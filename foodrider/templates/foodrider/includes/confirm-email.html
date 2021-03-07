@@ -1,0 +1,133 @@
+<!-- Microdata markup added by Google Structured Data Markup Helper. -->
+<div itemscope itemtype="http://schema.org/Order">
+    <span itemprop="merchant" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="FoodRider" />
+    </span>
+    <p>
+        Hi
+        <span itemprop="customer" itemscope itemtype="http://schema.org/Person"><strong
+                itemprop="name">{{order.customer.name}}</strong></span>
+    </p>
+    <p>Thank you for your ordering with us. Bon app&eacute;tit!</p>
+    <p>
+        You can track your order
+        <a
+            href="{% url 'order-confirmed' transactionid=order.transaction_id %}"
+            target="_blank"
+            rel="noopener">here</a>
+    </p>
+    <link
+        itemprop="url"
+        href="{% url 'order-confirmed' transactionid=order.transaction_id %}" />
+    <div
+        itemprop="potentialAction"
+        itemscope
+        itemtype="http://schema.org/ViewAction">
+        <link
+            itemprop="url"
+            href="{% url 'order-confirmed' transactionid=order.transaction_id %}" />
+    </div>
+    <p>
+        <span style="text-decoration: underline"><strong>Order details for order #<span
+                    itemprop="orderNumber">{{order.id}}</span></strong></span>
+    </p>
+    <meta itemprop="priceCurrency" content="INR" />
+    <table
+        style="width: 100%; border-collapse: collapse; border-style: none"
+        border="1">
+        <tbody>
+            <tr>
+                <td style="width: 25%">Restaurant:</td>
+                <td style="width: 75%; text-align: right">{{restaurant}}</td>
+            </tr>
+            <tr>
+                <td style="width: 25%">Shipping Address:</td>
+                <td
+                    itemprop="billingAddress"
+                    itemscope
+                    itemtype="http://schema.org/PostalAddress"
+                    style="width: 75%; text-align: right">
+                    <span itemprop="streetAddress">{{order.shipping_address.address}}</span>
+                    <br />
+                    {{order.shipping_address.phone_number}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr style="margin-top: -1em" />
+
+    <table
+        style="width: 100%; border-collapse: collapse; border-style: none"
+        border="1">
+        <tbody>
+            <tr>
+                <td style="width: 50%" colspan="2">Order Items</td>
+            </tr>
+            {% for item in order_items %}
+            <tr itemprop="acceptedOffer" itemscope itemtype="http://schema.org/Offer">
+                <td
+                    itemprop="itemOffered"
+                    itemscope
+                    itemtype="http://schema.org/Product"
+                    style="width: 75%">
+                    <span itemprop="name"><strong>{{item.menu_item.menu.name}}</strong></span><br />
+                    {{item.menu_item.name}}&times;<strong>{{item.quantity}}</strong>
+                </td>
+                <td style="width: 25%; text-align: right" itemprop="price">
+                    {{item.get_nominal_price_times_quantity}}
+                    <meta itemprop="priceCurrency" content="INR" />
+                </td>
+                <td
+                    style="width: 25%; text-align: right"
+                    itemprop="eligibleQuantity"
+                    itemscope
+                    itemtype="http://schema.org/QuantitativeValue">
+                    <meta itemprop="value" content="{{item.quantity}}" />
+                </td>
+            </tr>
+            {% endfor %}
+
+            <tr>
+                <td style="width: 75%">Total discount (-):</td>
+                <td itemprop="discount" style="width: 25%; text-align: right">
+                    {{order.get_cart_total_discount_price}}
+                </td>
+                <meta itemprop="discountCurrency" content="INR" />
+            </tr>
+            <tr>
+                <td style="width: 75%">Delivery (+):</td>
+                <td style="width: 25%; text-align: right">{{order.delivery_charge}}</td>
+            </tr>
+            {% if order.razor_order_id %}
+            <tr>
+                <td style="width: 75%">Online transaction charge (+):</td>
+                <td style="width: 25%; text-align: right">
+                    {{order.get_cart_total_price_with_trans.charge}}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td style="width: 75%"><strong>Total:</strong></td>
+                <td itemprop="price" style="width: 25%; text-align: right">
+                    {% if order_items %} {% if order.razor_order_id %}
+                    {{order.get_cart_total_price_with_trans.price}} {% else %}
+                    {{order.get_cart_total_actual_price}} {% endif %} {% else %} 0 {%
+          endif %}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 75%">Payment method:</td>
+                <td style="width: 25%; text-align: right">
+                    % if order.razor_order_id %}Online (Payment ID:
+                    {{order.razor_order_id}}) {% else %} Cash on Delivery {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div
+        itemprop="priceSpecification"
+        itemscope
+        itemtype="http://schema.org/PriceSpecification">
+        <meta itemprop="priceCurrency" content="INR" />
+    </div>
+</div>
