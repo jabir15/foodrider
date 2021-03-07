@@ -12,20 +12,20 @@
     <p>
         You can track your order
         <a
-            href="{% url 'order-confirmed' transactionid=order.transaction_id %}"
+            href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/"
             target="_blank"
             rel="noopener">here</a>
     </p>
     <link
         itemprop="url"
-        href="{% url 'order-confirmed' transactionid=order.transaction_id %}" />
+        href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/" />
     <div
         itemprop="potentialAction"
         itemscope
         itemtype="http://schema.org/ViewAction">
         <link
             itemprop="url"
-            href="{% url 'order-confirmed' transactionid=order.transaction_id %}" />
+            href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/" />
     </div>
     <p>
         <span style="text-decoration: underline"><strong>Order details for order #<span
@@ -117,7 +117,7 @@
             <tr>
                 <td style="width: 75%">Payment method:</td>
                 <td style="width: 25%; text-align: right">
-                    % if order.razor_order_id %}Online (Payment ID:
+                    {% if order.razor_order_id %}Online (Payment ID:
                     {{order.razor_order_id}}) {% else %} Cash on Delivery {% endif %}
                 </td>
             </tr>
