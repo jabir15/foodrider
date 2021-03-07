@@ -2,6 +2,7 @@
     <span itemprop="merchant" itemscope itemtype="http://schema.org/Organization">
         <meta itemprop="name" content="FoodRider" />
     </span>
+    <link itemprop="orderStatus" href="http://schema.org/OrderProcessing"/>
     <p>
         Hi
         <span itemprop="customer" itemscope itemtype="http://schema.org/Person"><strong
@@ -64,7 +65,7 @@
                     itemtype="http://schema.org/Product"
                     style="width: 75%">
                     <span itemprop="name"><strong>{{item.menu_item.menu.name}}</strong></span><br />
-                    {{item.menu_item.name}}&times;<strong>{{item.quantity}}</strong>
+                    <span itemprop="sku">{{item.menu_item.name}}</span>&times;<strong>{{item.quantity}}</strong>
                 </td>
                 <td style="width: 25%; text-align: right" itemprop="price">
                     {{item.get_nominal_price_times_quantity}}
