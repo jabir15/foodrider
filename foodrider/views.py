@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
-from django.core.mail import BadHeaderError, EmailMessage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import get_template
 import json
 from foodrider.models import *
@@ -172,15 +172,19 @@ def sendEmail(order,emailid):
     restaurant = order_items[0].menu_item.menu.restaurant.name
 
     subject = f'Your FoodRider Order Placed for ID-{order.transaction_id}'
-    content = get_template('foodrider/includes/confirm-email.html').render({
+    html_content = get_template('foodrider/includes/confirm-email.html').render({
         'order':order,
         'order_items':order_items,
         'restaurant': restaurant,
     })
-    from_email = 'assamcollegecode.pythonanywhere@gmail.com'
+    text_content = f"""Hi {order.customer.name}
+    Thank you for ordering with us. Bon appétit!
+    You can track your order here https://foodrider.pythonanywhere.com/order-confirmed/{order.transaction_id}/
+    """
+    from_email ='Assam College Code PythonAnywhere <assamcollegecode.pythonanywhere@gmail.com>'
     to_email = emailid
-    email_msg = EmailMessage(subject, content, from_email, [to_email])
-    email_msg.content_subtype = 'html'
+    email_msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+    email_msg.attach_alternative(html_content, "text/html")
     email_msg.send()
 
 def orderConfirmed(request, transactionid):
