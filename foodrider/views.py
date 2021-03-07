@@ -171,7 +171,7 @@ def sendEmail(order,emailid):
     order_items = order.orderdetail_set.all()
     restaurant = order_items[0].menu_item.menu.restaurant.name
 
-    subject = f'Your FoodRider Order Placed for ID-{order.transaction_id}'
+    subject = 'Your FoodRider order has been placed'
     html_content = get_template('foodrider/includes/confirm-email.html').render({
         'order':order,
         'order_items':order_items,
