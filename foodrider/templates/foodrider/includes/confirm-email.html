@@ -111,8 +111,7 @@
                 <td itemprop="price" style="width: 25%; text-align: right">
                     {% if order_items %} {% if order.razor_order_id %}
                     {{order.get_cart_total_price_with_trans.price}} {% else %}
-                    {{order.get_cart_total_actual_price}} {% endif %} {% else %} 0 {%
-          endif %}
+                    {{order.get_cart_total_actual_price}} {% endif %} {% else %} 0 {% endif %}
                 </td>
             </tr>
             <tr>
