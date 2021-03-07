@@ -1,4 +1,3 @@
-<!-- Microdata markup added by Google Structured Data Markup Helper. -->
 <div itemscope itemtype="http://schema.org/Order">
     <span itemprop="merchant" itemscope itemtype="http://schema.org/Organization">
         <meta itemprop="name" content="FoodRider" />
@@ -8,7 +7,7 @@
         <span itemprop="customer" itemscope itemtype="http://schema.org/Person"><strong
                 itemprop="name">{{order.customer.name}}</strong></span>
     </p>
-    <p>Thank you for your ordering with us. Bon app&eacute;tit!</p>
+    <p>Thank you for ordering with us. Bon app&eacute;tit!</p>
     <p>
         You can track your order
         <a
@@ -28,15 +27,12 @@
             href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/" />
             <meta itemprop="name" content="Track Order"/>
     </div>
-    <p>
-        <span style="text-decoration: underline"><strong>Order details for order #<span
-                    itemprop="orderNumber">{{order.id}}</span></strong></span>
-    </p>
+    <p><strong>Order details for order #<span itemprop="orderNumber">{{order.id}}</span></strong></p>
     <meta itemprop="priceCurrency" content="INR" />
     <table  cellspacing="0" cellpadding="0"
         style="width: 100%; border-collapse: collapse; border: none">
         <tbody>
-            <tr>
+            <tr style="border-top:1px solid black;">
                 <td style="width: 25%">Restaurant:</td>
                 <td style="width: 75%; text-align: right">{{restaurant}}</td>
             </tr>
@@ -54,13 +50,11 @@
             </tr>
         </tbody>
     </table>
-    <hr/>
-
     <table  cellspacing="0" cellpadding="0"
         style="width: 100%; border-collapse: collapse; border: none">
         <tbody>
-            <tr>
-                <td style="width: 50%" colspan="2">Order Items</td>
+            <tr style="border-top:1px solid black;">
+                <td style="width: 50%" colspan="2"><strong>Order Items</strong></td>
             </tr>
             {% for item in order_items %}
             <tr itemprop="acceptedOffer" itemscope itemtype="http://schema.org/Offer">
@@ -113,7 +107,7 @@
                     {{order.get_cart_total_actual_price}} {% endif %} {% else %} 0 {% endif %}
                 </td>
             </tr>
-            <tr>
+            <tr style="border-bottom:1px solid black;">
                 <td style="width: 75%">Payment method:</td>
                 <td style="width: 25%; text-align: right">
                     {% if order.razor_order_id %}Online (Payment ID:
@@ -122,7 +116,6 @@
             </tr>
         </tbody>
     </table>
-    <hr/>
     <div
         itemprop="priceSpecification"
         itemscope
