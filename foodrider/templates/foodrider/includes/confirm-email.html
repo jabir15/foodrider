@@ -3,6 +3,9 @@
         <meta itemprop="name" content="FoodRider" />
     </span>
     <link itemprop="orderStatus" href="http://schema.org/OrderProcessing"/>
+    <a href="https://foodrider.pythonanywhere.com" title="Visit FoodRider" target="_blank">
+        <img alt="FoodRider" src="https://foodrider.pythonanywhere.com/static/foodrider/img/core-img/logo.png" style="border:0;width:115px"></a>
+    <hr/>
     <p>
         Hi
         <span itemprop="customer" itemscope itemtype="http://schema.org/Person"><strong
@@ -18,14 +21,14 @@
     </p>
     <link
         itemprop="url"
-        href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/" />
+        href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}" />
     <div
         itemprop="potentialAction"
         itemscope
         itemtype="http://schema.org/ViewAction">
         <link
             itemprop="url"
-            href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}/" />
+            href="https://foodrider.pythonanywhere.com/order-confirmed/{{order.transaction_id}}" />
             <meta itemprop="name" content="Track Order"/>
     </div>
     <p><strong>Order details for order #<span itemprop="orderNumber">{{order.id}}</span></strong></p>
