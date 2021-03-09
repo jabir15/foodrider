@@ -142,6 +142,7 @@
     $('body').on('change', '#select-menu', function (e) {
         e.preventDefault()
         $("#select-menu-option").fadeIn();
+        var restaurant_name = $("#select-restaurant").val()
         var menu_name = $(this).val()
         var menu_option_name = $('select-menu-option').val()
         console.log(menu_name, menu_option_name)
@@ -150,6 +151,7 @@
             method: "POST",
             url: "/menuoption-by-menu/",
             data: {
+                'restaurant_name':restaurant_name,
                 'menu_name': menu_name,
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
@@ -160,8 +162,9 @@
     });
     $('body').on('click', '.create-or-update', function (e) {
         e.preventDefault()
-        var restaurant_name = document.getElementById('select-restaurant').value
-        var menu_name = document.getElementById('select-menu').value
+        var restaurant_name = document.getElementById('select-restaurant').value;
+        var menu_name = document.getElementById('select-menu').value;
+        var menu_option_id = $(this).closest("form").attr("id");
         var menu_option_name = $(this).closest("form").find("input[id='option_id']").val();
         var menu_option_item = $(this).closest("form").find("#option_type").val();
         var menu_option_dish = $(this).closest("form").find("#option_dish").val();
@@ -183,6 +186,7 @@
                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                         'restaurant_name': restaurant_name,
                         'menu_name': menu_name,
+                        'menu_option_id': menu_option_id,
                         'menu_option_name': menu_option_name,
                         'menu_option_item': menu_option_item,
                         'menu_option_dish': menu_option_dish,
@@ -204,6 +208,7 @@
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
                     'restaurant_name': restaurant_name,
                     'menu_name': menu_name,
+                    'menu_option_id': menu_option_id,
                     'menu_option_name': menu_option_name,
                     'menu_option_item': menu_option_item,
                     'menu_option_dish': menu_option_dish,
