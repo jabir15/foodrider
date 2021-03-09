@@ -87,7 +87,7 @@ def get_menuoptions_by_menu(request):
     if menu_name == "M00":
         menuoptions = MenuItemOption.objects.none()
     else:
-        menuoptions = MenuItemOption.objects.filter(menu__name=menu_name)
+        menuoptions = MenuItemOption.objects.filter(menu__name=menu_name, menu__restaurant__name=restaurant_name)
     context = {'menuoptions':menuoptions}
 
     return render(request, 'users/includes/menuoption-by-menu.html', context)
@@ -98,6 +98,7 @@ def get_menuoptions_by_menu(request):
 def create_or_update_menu_option(request):
     restaurant_name = request.POST.get('restaurant_name', '')
     menu_name = request.POST.get('menu_name', '')
+    menu_option_id = request.POST.get('menu_option_id', '')
     menu_option_name = request.POST.get('menu_option_name', '')
     menu_option_item = request.POST.get('menu_option_item', '')
     menu_option_dish = request.POST.get('menu_option_dish', '')
@@ -108,21 +109,26 @@ def create_or_update_menu_option(request):
     restaurant = Restaurant.objects.get(name=restaurant_name)
     menuitem = MenuItem.objects.get(name=menu_name, restaurant=restaurant)
 
-    menuitemoption, created = MenuItemOption.objects.get_or_create(
-        name=menu_option_name,
-        menu=menuitem,
-    )
     if action == 'delete':
-        menuitemoption.delete()
+        MenuItemOption.objects.filter(id=menu_option_id[7:]).delete()
         # data = {}
+    elif action == 'update':
+        MenuItemOption.objects.filter(id=menu_option_id[7:]).update(
+            name = menu_option_name,
+            item_type = menu_option_item,
+            dish_type = menu_option_dish,
+            nominal_price = Decimal(menu_option_np.strip() or 0),
+            discount_price = Decimal(menu_option_dp.strip() or 0)
+        )
     else:
-        menuitemoption.item_type = menu_option_item
-        menuitemoption.dish_type = menu_option_dish
-        menuitemoption.nominal_price = Decimal(menu_option_np.strip() or 0)
-        menuitemoption.discount_price = Decimal(menu_option_dp.strip() or 0)
-        if created:
-            menuitemoption.name = menu_option_name
-        menuitemoption.save()
+        MenuItemOption.objects.create(
+            menu = menuitem,
+            name = menu_option_name,
+            item_type = menu_option_item,
+            dish_type = menu_option_dish,
+            nominal_price = Decimal(menu_option_np.strip() or 0),
+            discount_price = Decimal(menu_option_dp.strip() or 0)
+        )
     
     data = get_menuoptions_by_menu(request)
 
