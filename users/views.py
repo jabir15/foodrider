@@ -83,6 +83,7 @@ def get_menus_by_restaurant(request):
 @user_passes_test(username_check, login_url='login')
 @require_http_methods(["POST"])
 def get_menuoptions_by_menu(request):
+    restaurant_name = request.POST.get('restaurant_name', '')
     menu_name = request.POST.get('menu_name', '')
     if menu_name == "M00":
         menuoptions = MenuItemOption.objects.none()
