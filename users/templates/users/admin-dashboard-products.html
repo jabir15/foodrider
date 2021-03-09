@@ -125,8 +125,6 @@
         $("#select-menu-option").fadeOut();
         var restaurant_name = $(this).val();
         var menu_name = $("#select-menu").val();
-        console.log(restaurant_name, menu_name)
-
         $.ajax({
             method: "POST",
             url: "/menu-by-restaurant/",
@@ -145,8 +143,6 @@
         var restaurant_name = $("#select-restaurant").val()
         var menu_name = $(this).val()
         var menu_option_name = $('select-menu-option').val()
-        console.log(menu_name, menu_option_name)
-
         $.ajax({
             method: "POST",
             url: "/menuoption-by-menu/",
@@ -195,7 +191,6 @@
                         'action': action
                     },
                     success: function (data) {
-                        console.log(data)
                         $("#select-menu-option").html(data);
                     }
                 })
@@ -217,7 +212,6 @@
                     'action': action
                 },
                 success: function (data) {
-                    console.log(data)
                     $("#select-menu-option").html(data);
                 }
             })

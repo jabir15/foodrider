@@ -61,7 +61,6 @@
         var input_text = sib.val()
         var is_sel = sib.is(":checked")
         var is_default = $(this).closest('form').find('.hd').hasClass('text-white')
-        console.log(is_default)
         if (action === 'delete' && !is_default) {
             alert('Default shipping address cannot be deleted.')
             return false;
@@ -94,7 +93,6 @@
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function (data) {
-                console.log(data.status_code)
                 //$(this).closest('div').prev().find('input').val(data['value'])
                 $('#customer_addresses').html(data)
             },
