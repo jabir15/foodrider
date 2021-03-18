@@ -158,6 +158,7 @@
     });
     $('body').on('click', '.create-or-update', function (e) {
         e.preventDefault()
+        $(this).find('i').removeClass('d-none');
         var restaurant_name = document.getElementById('select-restaurant').value;
         var menu_name = document.getElementById('select-menu').value;
         var menu_option_id = $(this).closest("form").attr("id");
@@ -213,6 +214,9 @@
                 },
                 success: function (data) {
                     $("#select-menu-option").html(data);
+                },
+                complete: function(){
+                    $(this).find('i').addClass('d-none');
                 }
             })
 
