@@ -124,7 +124,6 @@
     {% if selected_restaurant %}
     $(function () {
         $("#select-restaurant").trigger('change');
-        $("#select-menu").trigger('change');
     });
     {% endif %}
     $("#select-restaurant").change(function () {
@@ -140,7 +139,7 @@
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function (data) {
-                $("#select-menu").html(data);
+                $("#select-menu").html(data).trigger('change');
             }
         });
     });
