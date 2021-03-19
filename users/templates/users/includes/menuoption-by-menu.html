@@ -1,5 +1,5 @@
 {% for menuoption in menuoptions %}
-<div class="col-sm-2">Menu Option {{forloop.counter}}</div>
+<div class="col-sm-2 text-center text-sm-left">Menu Option {{forloop.counter}}</div>
 <div class="col-sm-10">
     <form id="update_{{menuoption.id}}" action="" method="POST">
     {% csrf_token %}
@@ -46,7 +46,7 @@
     </form>
 </div>
 {% endfor %}
-<div class="col-sm-2"> Add New</div>
+<div class="col-sm-2 text-center text-sm-left"> Add New</div>
 <div class="col-sm-10">
     <form id="add_new" action="" method="POST">
     {% csrf_token %}

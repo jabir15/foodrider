@@ -18,12 +18,12 @@
             <div class="col-12">
                 <form>
                     <div class="form-group row">
-                        <label for="select-restaurant" class="col-sm-4 col-form-label text-right">Restaurant</label>
+                        <label for="select-restaurant" class="col-sm-4 col-form-label text-center text-sm-right">Restaurant</label>
                         <div class="col-sm-6">
                             <select class="form-control" id="select-restaurant">
                                 <option value="None">Select Restaurant</option>
                                 {% for restaurant in restaurants %}
-                                <option value="{{restaurant.name}}">
+                                <option value="{{restaurant.name}}" {% if selected_restaurant == restaurant.name %}selected{% endif %}>
                                     {{restaurant.name}}
                                 </option>
                                 {% endfor %}
@@ -31,19 +31,19 @@
                         </div>
                         <div class="col-sm-2">
                             <button id="myBtn" type="button" data-action="add-restaurant"
-                                class="btn btn-primary btn-sm mb-2 ml-2 add-restaurant" style="height:30px;">
+                                class="btn btn-primary btn-sm mt-2 mt-sm-0 mb-sm-2 ml-sm-2 add-restaurant" style="height:30px;">
                                 Add
                             </button>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="select-menu" class="col-sm-4 col-form-label text-right">Menu</label>
+                        <label for="select-menu" class="col-sm-4 col-form-label text-center text-sm-right">Menu</label>
                         <div class="col-sm-6" id="checkreload">
                             {% include 'users/includes/menu-by-restaurant.html' %}
                         </div>
                         <div class="col-sm-2">
                             <button id='myBtn2' type="button" data-action="add-menu"
-                                class="btn btn-primary btn-sm mb-2 ml-2 add-menu" style="height:30px;">
+                                class="btn btn-primary btn-sm mt-2 mt-sm-0 mb-sm-2 ml-sm-2 add-menu" style="height:30px;">
                                 Add
                             </button>
                         </div>
@@ -93,8 +93,8 @@
         </div>
         <div class="modal-body">
             <form id="add-menu-form" method="POST" action="{% url 'add-menu-item' %}">{% csrf_token %}
-                <label for="select-restaurant">Select the restaurant</label>
-                <select class="form-control" id="select-restaurant" name="select-restaurant">
+                <label for="selected-restaurant">Select the restaurant</label>
+                <select class="form-control" id="selected-restaurant" name="select-restaurant">
                     <option value="None">Select Restaurant</option>
                     {% for restaurant in restaurants %}
                     <option value="{{restaurant.name}}">
@@ -121,6 +121,11 @@
 
 {% block scripts %}
 <script>
+    {% if selected_restaurant %}
+    $(function () {
+        $("#select-restaurant").trigger('change');
+    });
+    {% endif %}
     $("#select-restaurant").change(function () {
         $("#select-menu-option").fadeOut();
         var restaurant_name = $(this).val();
@@ -256,6 +261,7 @@
     // When the user clicks on the button, open the modal
     btn2.onclick = function () {
         modal2.style.display = "block";
+        $('#selected-restaurant').val($('#select-restaurant').val())
     }
     // When the user clicks on <span> (x), close the modal
     span2.onclick = function () {
