@@ -2,7 +2,7 @@
 <select class="form-control" id="select-menu">
     <option value="None">Select Menu</option>
     {% for menu in menus %}
-    <option value="{{menu.name}}">
+    <option value="{{menu.name}}" {% if selected_menu == menu.name %}selected{% endif %}>
         {{menu.name}}
     </option>
     {% endfor %}

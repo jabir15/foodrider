@@ -63,7 +63,6 @@ def adminDashboardProducts(request):
     restaurants = Restaurant.objects.all()
     context = {
         'restaurants': restaurants,
-        'selected_restaurant': 'None'
     }
     
     return render(request, 'users/admin-dashboard-products.html', context)
@@ -73,11 +72,12 @@ def adminDashboardProducts(request):
 @require_http_methods(["POST"])
 def get_menus_by_restaurant(request):
     restaurant_name = request.POST.get('restaurant_name', '')
-    if restaurant_name == 'R00':
+    menu_name = request.POST.get('menu_name', '')
+    if restaurant_name == 'None':
         menus = MenuItem.objects.none()
     else:
         menus = MenuItem.objects.filter(restaurant__name=restaurant_name)
-    context = {'menus': menus}
+    context = {'menus': menus, 'selected_menu': menu_name}
     return render(request, 'users/includes/menu-by-restaurant.html', context)
 
 @login_required(login_url='login')
@@ -86,7 +86,7 @@ def get_menus_by_restaurant(request):
 def get_menuoptions_by_menu(request):
     restaurant_name = request.POST.get('restaurant_name', '')
     menu_name = request.POST.get('menu_name', '')
-    if menu_name == "M00":
+    if menu_name == "None":
         menuoptions = MenuItemOption.objects.none()
     else:
         menuoptions = MenuItemOption.objects.filter(menu__name=menu_name, menu__restaurant__name=restaurant_name)
@@ -195,6 +195,7 @@ def addNewMenuItem(request):
     context = {
         'restaurants': restaurants,
         'selected_restaurant': res_name,
+        'selected_menu': menu_name
     } 
     return render(request, 'users/admin-dashboard-products.html', context)
 
