@@ -63,6 +63,7 @@ def adminDashboardProducts(request):
     restaurants = Restaurant.objects.all()
     context = {
         'restaurants': restaurants,
+        'selected_restaurant': 'None'
     }
     
     return render(request, 'users/admin-dashboard-products.html', context)
@@ -189,7 +190,13 @@ def addNewMenuItem(request):
     res_name = request.POST.get('select-restaurant')
     restaurant = Restaurant.objects.get(name=res_name)
     MenuItem.objects.create(name=menu_name, restaurant=restaurant)
-    return redirect(request.META.get('HTTP_REFERER'))
+    
+    restaurants = Restaurant.objects.all()
+    context = {
+        'restaurants': restaurants,
+        'selected_restaurant': res_name,
+    } 
+    return render(request, 'users/admin-dashboard-products.html', context)
 
 @login_required(login_url='login')
 @user_passes_test(username_check, login_url='login')
