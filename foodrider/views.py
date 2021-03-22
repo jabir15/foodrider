@@ -42,6 +42,22 @@ def product_details(request,id):
     }
     return render(request, 'foodrider/product-details.html', context)
 
+def search_products(request):
+    data = cartData(request)
+    order_items = data['order_items']
+    order = data['order']
+
+    search_term = request.GET.get('search_term')
+    menu_items_filtered = MenuItemOption.objects.filter(menu__name__icontains=search_term).union(MenuItemOption.objects.filter(name__icontains=search_term))
+    restaurant_filtered = menu_items_filtered.values('menu__restaurant', 'menu__restaurant__name').distinct()
+    context = {
+        'cart_items': order_items,
+        'order':order,
+        'search_items': menu_items_filtered,
+        'restaurants': restaurant_filtered,
+    }
+    return render(request, 'foodrider/search-products.html', context)
+
 def cart(request):
     data = cartData(request)
     order_items = data['order_items']

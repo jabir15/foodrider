@@ -19,8 +19,11 @@
                 <h2 class="display-1"
                     style="color:white; font-family: 'Berkshire Swash',handwriting; text-shadow:0px 3px 5px #7A7A7A;">
                     Food Rider</h2>
-                <a style="margin:30px 0;" class="btn amado-btn" href="{% url 'restaurant-list' %}">Order Now</a>
-                <p class="hline lead" style="color:white;">Good Food | Good Time</p>
+                <form id="search_term" method="GET" action="{% url 'search-products' %}" style="background-color: rgb(0 0 0 / 30%);" class="form-inline py-2 py-lg-4 rounded flex-wrap flex-lg-nowrap justify-content-center">
+                    <div class="py-2 py-sm-0">I want to eat</div>
+                    <input id="search_term" name="search_term" type="text" class="search-term form-control bg-transparent text-center text-white" >
+                    <button type="submit" style="background-color:#fbb710; height:39px" class="btn px-4 py-2 my-2 my-lg-0 text-white">NOW</button>
+                </form>
 
             </div>
             <div class="carousel-item" style="background-image: url('{% static 'foodrider/img/bg-img/bk3.jpg' %}')">
@@ -45,7 +48,7 @@
                     <div class="newsletter-text text-center">
                         <p class="display-3"><i class="bi bi-info-square-fill"></i></p>
                         <h2>Quality Ingredients, Tasty Meals</h2>
-                        <p>Food Rider is a food ordering and delivery company based in silchar, Assam. Food Rider was
+                        <p class="w-75 mx-auto">Food Rider is a food ordering and delivery company based in silchar, Assam. Food Rider was
                             inspired with thought of connecting the foodies with their favorite eating places in a
                             common centralized portal.</p>
                     </div>
@@ -72,3 +75,10 @@
 </div>
 
 {% endblock content %}
+{% block scripts %}
+<script>
+    function myFunction() {
+        location.href='/search/' +document.getElementById("searchtext").value;
+    }
+</script>
+{% endblock scripts %}
