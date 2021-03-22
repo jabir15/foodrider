@@ -48,19 +48,23 @@ def search_products(request):
     order = data['order']
 
     search_term = request.GET.get('search_term').split()
-    menu_items_filtered = MenuItemOption.objects.filter(menu__name__icontains=search_term[0]).union(MenuItemOption.objects.filter(name__icontains=search_term[0]))
-    if len(search_term) > 1 :
-        for st in search_term[1:]:
-            menu_items_filtered = menu_items_filtered.union(MenuItemOption.objects.filter(menu__name__icontains=st))
-            menu_items_filtered = menu_items_filtered.union(MenuItemOption.objects.filter(name__icontains=st))
-    
-    restaurant_filtered = menu_items_filtered.values('menu__restaurant', 'menu__restaurant__name').distinct()
-    context = {
-        'cart_items': order_items,
-        'order':order,
-        'search_items': menu_items_filtered,
-        'restaurants': restaurant_filtered,
-    }
+    try:
+        menu_items_filtered = MenuItemOption.objects.filter(menu__name__icontains=search_term[0]).union(MenuItemOption.objects.filter(name__icontains=search_term[0]))
+        if len(search_term) > 1 :
+            for st in search_term[1:]:
+                menu_items_filtered = menu_items_filtered.union(MenuItemOption.objects.filter(menu__name__icontains=st))
+                menu_items_filtered = menu_items_filtered.union(MenuItemOption.objects.filter(name__icontains=st))
+        
+        restaurant_filtered = menu_items_filtered.values('menu__restaurant', 'menu__restaurant__name').distinct()
+        context = {
+            'cart_items': order_items,
+            'order':order,
+            'search_items': menu_items_filtered,
+            'restaurants': restaurant_filtered,
+        }
+    except IndexError:
+        return redirect(request.META.get('HTTP_REFERER'))
+        
     return render(request, 'foodrider/search-products.html', context)
 
 def cart(request):
