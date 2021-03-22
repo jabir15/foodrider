@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div id="search-title" class="restaurant-name cart-title mt-50 mb-4 text-center">
-                    <h2 class="mb-1">Search results for {{request.resolver_match.kwargs.search_term}}</h2>
+                    <h2 class="mb-1">Search results for {{request.GET.search_term|lower}}</h2>
                     <h5 style="color:#fbb710"><i class="fa fa-info-circle"></i> Select items from only one restaurant or make multiple orders</h5>
                 </div>
                 
