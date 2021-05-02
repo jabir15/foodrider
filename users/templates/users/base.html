@@ -28,27 +28,6 @@
 </head>
 
 <body>
-    <!-- Search Wrapper Area Start -->
-    <div class="search-wrapper section-padding-100">
-        <div class="search-close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="{% static 'foodrider/img/core-img/search.png'%}"
-                                    alt=""></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Search Wrapper Area End -->
-
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
@@ -99,7 +78,7 @@
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 {% if user.is_authenticated %}
-                <a href="#" class="btn amado-btn mb-15">{{user.username}}</a>
+                <a href="{% url 'your-orders' %}" class="btn amado-btn mb-15">{{user.username}}</a>
                 <a href="{% url 'logout' %}" class="btn amado-btn active">Logout</a>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn amado-btn mb-15">Login / Register </a>
@@ -116,9 +95,6 @@
         <!-- Product Catagories Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
-
-    <!-- ##### Newsletter Area Start ##### -->
-    <!-- ##### Newsletter Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">

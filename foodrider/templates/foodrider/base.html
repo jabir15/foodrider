@@ -29,27 +29,6 @@
 </head>
 
 <body>
-    <!-- Search Wrapper Area Start -->
-    <div class="search-wrapper section-padding-100">
-        <div class="search-close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="{% static 'foodrider/img/core-img/search.png'%}"
-                                    alt=""></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Search Wrapper Area End -->
-
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
@@ -93,10 +72,11 @@
                             href="{%url 'restaurant-list' %}">Restaurants</a></li>
                     <li class="{% if url_name == 'cart' %}active{% endif %}"><a href="{%url 'cart' %}">Cart</a></li>
                     {% if user.is_authenticated %}
-                    {% if user.username == "foodrider_admin" %}
-                    <li class="{% if url_name == 'admin-dashboard' %}active{% endif %}"><a
-                            href="{% url 'admin-dashboard' %}">Dashboard</a></li>
-                    {% endif %}
+                        {% if user.username == "foodrider_admin" %}
+                            <li class="{% if url_name == 'admin-dashboard' %}active{% endif %}">
+                                <a href="{% url 'admin-dashboard' %}">Dashboard</a>
+                            </li>
+                        {% endif %}
                     <li class="{% if url_name == 'your-orders' %}active{% endif %}"><a
                             href="{% url 'your-orders' %}">Your Account</a></li>
                     {% else %}
@@ -126,9 +106,6 @@
         <!-- Product Catagories Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
-
-    <!-- ##### Newsletter Area Start ##### -->
-    <!-- ##### Newsletter Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
